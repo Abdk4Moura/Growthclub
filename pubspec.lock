@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.16.0"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       url: "https://pub.dartlang.org"
@@ -465,11 +465,9 @@ packages:
   sign_in_with_apple:
     dependency: "direct main"
     description:
-      path: "packages/sign_in_with_apple/sign_in_with_apple"
-      ref: ab18d53a80e0a4bb90f1ad84f37f1b408930f28d
-      resolved-ref: ab18d53a80e0a4bb90f1ad84f37f1b408930f28d
-      url: "https://github.com/asmengistu/dart_packages"
-    source: git
+      name: sign_in_with_apple
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "3.3.0"
   sign_in_with_apple_platform_interface:
     dependency: transitive
