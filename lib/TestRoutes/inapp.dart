@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/TestRoutes/starterpage.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 List<String> useList = <String>['a', 'and', 'b'];
 var useL = useList.map((element) => ElevatedButton(
@@ -76,7 +76,6 @@ class ButtonBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(something);
     return Container(
       color: Colors.white70,
       child: Row(
@@ -178,3 +177,85 @@ var something = List.generate(5, (index) => index ^ 2);
 void navigate() {
   List<Widget> dummy = [];
 }
+
+class AppPage1 extends StatelessWidget {
+  const AppPage1({Key? key}) : super(key: key);
+
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+        style: HeadingTextStyle,
+        child: SafeArea(
+          child: Column(
+            children: [
+              TitleWidget(
+                  big: 'Let\'s get you set up.', small: 'Create an account'),
+              Text('')
+            ],
+          ),
+        ));
+  }
+}
+
+Widget TitleWidget({String? big, String? small}) {
+  return Container(
+    child: Column(
+      children: [
+        Container(width: 250, child: CenterText(big as String)),
+        CenterText(small as String, style: SmallTextStyle)
+      ],
+    ),
+  );
+}
+
+TextStyle HeadingTextStyle =
+    GoogleFonts.montserrat(fontSize: 30, fontWeight: FontWeight.w700);
+
+TextStyle SmallTextStyle =
+    GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w400);
+
+Widget CenterText(String data, {TextStyle? style}) {
+  return Text(
+    data,
+    style: style,
+    textAlign: TextAlign.center,
+  );
+}
+
+class RegistrationInput extends StatelessWidget {
+  const RegistrationInput({super.key});
+
+  Widget build(BuildContext context) {
+    return Text('');
+  }
+}
+
+// class CenterText extends Text {
+//   const CenterText(
+//     super.data, {
+//     super.key,
+//     super.style,
+//     super.strutStyle,
+//     super.textAlign,
+//     super.textDirection,
+//     super.locale,
+//     super.softWrap,
+//     super.overflow,
+//     super.textScaleFactor,
+//     super.maxLines,
+//     super.semanticsLabel,
+//     super.textWidthBasis,
+//     super.textHeightBehavior,
+//     super.selectionColor,
+//   }) : super();
+
+//   Widget build(BuildContext context) {
+//     return Text(
+//       super.data as String,
+//       textAlign: TextAlign.center,
+//     );
+
+//     widgt _super = super.build(context);
+
+//   }
+// }
+
