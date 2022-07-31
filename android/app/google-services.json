@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "634220758335",
+    "firebase_url": "https://growthron-3f221-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "growthron-3f221",
+    "storage_bucket": "growthron-3f221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634220758335:android:8066dfc94c113311083f8a",
+        "android_client_info": {
+          "package_name": "com.example.growthclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634220758335-ppb4tbhppi8efo4589bipb5q4j9mg43p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh-PPQWmyMxbHcTVlpRUTkIXp54sNt4pU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634220758335-ppb4tbhppi8efo4589bipb5q4j9mg43p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "634220758335-18sgffb0l8tbbj2jo4k9pvptdccuirg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.growthclub"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634220758335:android:bb5c8c0eda4bdb82083f8a",
+        "android_client_info": {
+          "package_name": "com.mycompany.growthclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634220758335-8lmpdrnopph207gg43j0p86ga9k441sn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.growthclub",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "634220758335-ppb4tbhppi8efo4589bipb5q4j9mg43p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh-PPQWmyMxbHcTVlpRUTkIXp54sNt4pU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634220758335-ppb4tbhppi8efo4589bipb5q4j9mg43p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "634220758335-18sgffb0l8tbbj2jo4k9pvptdccuirg6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.growthclub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
