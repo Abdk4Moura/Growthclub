@@ -258,4 +258,3 @@ class RegistrationInput extends StatelessWidget {
 
 //   }
 // }
-
