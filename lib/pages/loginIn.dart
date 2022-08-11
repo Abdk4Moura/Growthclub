@@ -8,14 +8,14 @@ import 'package:growthclub/themes.dart';
 import '../../growthron_ui.dart';
 import '../../auth/auth.dart';
 
-class RegisterPageWidget extends StatefulWidget {
-  const RegisterPageWidget({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageWidgetState createState() => _RegisterPageWidgetState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _RegisterPageWidgetState extends State<RegisterPageWidget> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController? textController1;
   TextEditingController? textController2;
   TextEditingController? textController3;
@@ -50,9 +50,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                 children: [
                   Column(
                     children: [
-                      TitleWidget(
-                          big: 'Let\'s get you set up.',
-                          small: 'Create an account'),
+                      TitleWidget(big: 'Welcome!', small: 'Create an account'),
                     ],
                   ),
                   Padding(
@@ -66,33 +64,46 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         autovalidateMode: AutovalidateMode.disabled,
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            TextFormField(
-                              controller: textController1,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Full Name',
-                                hintText: 'Tony Stark',
-                                hintStyle: OutfitTheme.bodyText2,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
+                            Padding(
+                              padding: EdgeInsets.all(20),
+                              child: InkWell(
+                                onTap: () async {
+                                  // await Navigator.push(
+                                  //   context,
+                                  //   PageTransition(
+                                  //     type: PageTransitionType.fade,
+                                  //     child: FlutterFlowExpandedImageView(
+                                  //       image: Image.network(
+                                  //         'https://picsum.photos/seed/948/600',
+                                  //         fit: BoxFit.contain,
+                                  //       ),
+                                  //       allowRotation: false,
+                                  //       tag: 'hero_tag_added',
+                                  //       useHeroAnimation: true,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                                child: Hero(
+                                  tag: 'hero_tag_added',
+                                  transitionOnUserGestures: true,
+                                  child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/948/600',
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
                                 ),
                               ),
-                              style: OutfitTheme.bodyText1,
-                              keyboardType: TextInputType.name,
                             ),
                             TextFormField(
                               controller: textController2,
@@ -112,7 +123,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Colors.black,
-                                    width: 1,
+                                    width: 1.5,
                                   ),
                                   borderRadius: BorderRadius.circular(40),
                                 ),
@@ -146,32 +157,39 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               style: OutfitTheme.bodyText1,
                               keyboardType: TextInputType.visiblePassword,
                             ),
-                            TextFormField(
-                              controller: textController4,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Confirm Password',
-                                hintText: 'Type it again',
-                                hintStyle: OutfitTheme.bodyText2,
-                                enabledBorder: OutlineInputBorder(
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 30, 0, 0),
+                              child: GrowthronButton(
+                                onPressed: () async {
+                                  print('ButtonPrimary pressed ...');
+
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MainScreenPageWidget(),
+                                    ),
+                                    (r) => false,
+                                  );
+                                },
+                                text: 'Login\n',
+                                options: GrowthronButtonOptions(
+                                  width: 300,
+                                  height: 50,
+                                  color: Colors.black,
+                                  textStyle: OutfitTheme.subtitle1.apply(
+                                    color: Colors.white,
+                                  ),
+                                  elevation: 3,
                                   borderSide: const BorderSide(
-                                    color: Colors.black,
+                                    color: Colors.transparent,
                                     width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              style: OutfitTheme.bodyText1,
-                              keyboardType: TextInputType.visiblePassword,
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -320,37 +338,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: GrowthronButton(
-                      onPressed: () async {
-                        print('ButtonPrimary pressed ...');
-
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MainScreenPageWidget(),
-                          ),
-                          (r) => false,
-                        );
-                      },
-                      text: 'Get Started\n',
-                      options: GrowthronButtonOptions(
-                        width: 300,
-                        height: 50,
-                        color: Colors.black,
-                        textStyle: OutfitTheme.subtitle1?.apply(
-                          color: Colors.white,
-                        ),
-                        elevation: 3,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
                     ),
                   ),
                 ],
