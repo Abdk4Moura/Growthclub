@@ -1,5 +1,3 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +17,7 @@ class _TrackMyProgressStoryWidgetState
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Theme.of(context).secondaryBackground,
+      backgroundColor: Theme.of(context).canvasColor,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -31,7 +29,7 @@ class _TrackMyProgressStoryWidgetState
                 children: [
                   Text(
                     'Activity',
-                    style: Theme.of(context).title1,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ],
               ),
@@ -43,7 +41,7 @@ class _TrackMyProgressStoryWidgetState
                 children: [
                   Text(
                     'All Activity from this past month.',
-                    style: Theme.of(context).bodyText2,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
@@ -64,7 +62,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 16,
                           height: 16,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -72,7 +70,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 2,
                           height: 110,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor, // hintColor
                           ),
                         ),
                       ],
@@ -96,7 +94,7 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 '14, Sept. 2021',
-                                style: Theme.of(context).bodyText2,
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               Icon(
                                 Icons.chevron_right_rounded,
@@ -110,18 +108,21 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 'Created New User',
-                                style: Theme.of(context).subtitle2,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   'Andrew Daniels',
-                                  style: Theme.of(context).subtitle1.override(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.apply(
                                         fontFamily: 'Lexend Deca',
                                         color: Theme.of(context).primaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
+                                        // fontSize: 18,
+                                        // fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
@@ -136,7 +137,8 @@ class _TrackMyProgressStoryWidgetState
                                 Container(
                                   width: 30,
                                   height: 30,
-                                  clipBehavior: Clip.antiAlias,
+                                  clipBehavior:
+                                      Clip.antiAlias, // research about this
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                   ),
@@ -149,7 +151,8 @@ class _TrackMyProgressStoryWidgetState
                                       8, 0, 0, 0),
                                   child: Text(
                                     'Andrew F.',
-                                    style: Theme.of(context).bodyText2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                 ),
                               ],
@@ -178,7 +181,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 16,
                           height: 16,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -186,7 +189,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 2,
                           height: 110,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                       ],
@@ -210,7 +213,7 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 '14, Sept. 2021',
-                                style: Theme.of(context).bodyText2,
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               Icon(
                                 Icons.chevron_right_rounded,
@@ -224,19 +227,24 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 'Creted a Group',
-                                style: Theme.of(context).subtitle2,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   'Design Team',
-                                  style: Theme.of(context).subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Theme.of(context).alternate,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.apply(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Theme.of(context)
+                                              .secondaryHeaderColor
+                                          // color: Theme.of(context).alternate,
+                                          // fontSize: 18,
+                                          // fontWeight: FontWeight.w500,
+                                          ),
                                 ),
                               ),
                             ],
@@ -263,7 +271,8 @@ class _TrackMyProgressStoryWidgetState
                                       8, 0, 0, 0),
                                   child: Text(
                                     'Andrew F.',
-                                    style: Theme.of(context).bodyText2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                 ),
                               ],
@@ -292,7 +301,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 16,
                           height: 16,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -300,7 +309,7 @@ class _TrackMyProgressStoryWidgetState
                           width: 2,
                           height: 100,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).secondaryText,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                       ],
@@ -324,7 +333,7 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 '14, Sept. 2021',
-                                style: Theme.of(context).bodyText2,
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               Icon(
                                 Icons.chevron_right_rounded,
@@ -338,18 +347,21 @@ class _TrackMyProgressStoryWidgetState
                             children: [
                               Text(
                                 'Created Invoice',
-                                style: Theme.of(context).subtitle2,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   '#402 - Contractor',
-                                  style: Theme.of(context).subtitle1.override(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.apply(
                                         fontFamily: 'Lexend Deca',
                                         color: Theme.of(context).primaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
+                                        // fontSize: 18,
+                                        // fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
@@ -377,7 +389,8 @@ class _TrackMyProgressStoryWidgetState
                                       8, 0, 0, 0),
                                   child: Text(
                                     'Andrew F.',
-                                    style: Theme.of(context).bodyText2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                 ),
                               ],
@@ -404,7 +417,7 @@ class _TrackMyProgressStoryWidgetState
                         width: 2,
                         height: 152,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).secondaryText,
+                          color: Theme.of(context).hintColor,
                         ),
                       ),
                     ),
@@ -415,11 +428,12 @@ class _TrackMyProgressStoryWidgetState
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).secondaryBackground,
+                      color:
+                          Theme.of(context).canvasColor, // secondaryBackground
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 0,
-                          color: Theme.of(context).secondaryText,
+                          color: Theme.of(context).hintColor,
                           offset: Offset(0, 1),
                         )
                       ],
@@ -448,7 +462,8 @@ class _TrackMyProgressStoryWidgetState
               padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
               child: Text(
                 'Beginning of Activity',
-                style: Theme.of(context).subtitle1,
+                style:
+                    Theme.of(context).textTheme.titleLarge, // subtextTheme.ti..
               ),
             ),
           ],
