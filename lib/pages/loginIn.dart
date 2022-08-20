@@ -7,6 +7,8 @@ import 'package:growthclub/themes.dart';
 import '../../growthron_ui.dart';
 import '../../auth/auth.dart';
 
+// added some useless comments
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
