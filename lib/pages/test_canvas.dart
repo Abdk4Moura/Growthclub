@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TestCanvas extends StatefulWidget {
   const TestCanvas({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class TestCanvas extends StatefulWidget {
 
 class _TestCanvasState extends State<TestCanvas> {
   List<String> items = [
-    'Hello World',
+    'general',
     'something else',
     'another thing',
     'maybe another thing'
@@ -19,24 +20,31 @@ class _TestCanvasState extends State<TestCanvas> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('hello, world'),
+          title: Text(
+            'hello, world',
+            style: GoogleFonts.montserrat(),
+          ),
         ),
         body: Column(
           children: [
-            Container(
-                padding: EdgeInsets.all(5),
-                height: 30,
-                child: // Generated code for this ListView Widget...
-                    ListView.builder(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: items.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CategoriesItem('#${items[index]}');
-                  },
-                )),
+            AnimatedOpacity(
+              opacity: 1,
+              duration: Duration(milliseconds: 100),
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  height: 40,
+                  child: // Generated code for this ListView Widget...
+                      ListView.builder(
+                    padding: EdgeInsets.zero,
+                    primary: false,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: items.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CategoriesItem('#${items[index]}');
+                    },
+                  )),
+            ),
           ],
         ));
   }
@@ -63,20 +71,16 @@ class CategoriesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.fromLTRB(0, 2, 10, 0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
             color: colorList[index],
-            borderRadius: const BorderRadius.all(Radius.circular(12))),
+            borderRadius: const BorderRadius.all(Radius.circular(4))),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: Colors.black),
-          ),
+          child: Text(text,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w900, fontFamily: 'Montserrat')),
         ),
       ),
     );
