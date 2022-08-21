@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/themes.dart';
 
-import '../../growthron_ui.dart';
 import '../../auth/auth.dart';
+import '../../growthron_ui.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -68,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: InkWell(
                                 onTap: () async {
                                   // await Navigator.push(
@@ -94,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                                     width: 120,
                                     height: 120,
                                     clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
@@ -131,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: OutfitTheme.bodyText1,
                               keyboardType: TextInputType.name,
                             ),
+                            const SizedBox(height: 16),
                             TextFormField(
                               controller: textController3,
                               autofocus: true,
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const MainScreenPageWidget(),
+                                          const MainScreenPage(),
                                     ),
                                     (r) => false,
                                   );
@@ -200,145 +200,153 @@ class _LoginPageState extends State<LoginPage> {
                     style: OutfitTheme.title1,
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            final user = await signInWithGoogle();
-                            if (user == null) {
-                              return;
-                            }
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Column(children: [
+                      const Spacer(),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                final user = await signInWithGoogle();
+                                if (user.user == null) {
+                                  // user == null
+                                  return;
+                                }
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainScreenPage(),
+                                  ),
+                                  (r) => false,
+                                );
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 5,
+                                      color: Color(0x3314181B),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.google,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
                               ),
-                              (r) => false,
-                            );
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 5,
-                                  color: Color(0x3314181B),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              shape: BoxShape.circle,
                             ),
-                            alignment: const AlignmentDirectional(0, 0),
-                            child: FaIcon(
-                              FontAwesomeIcons.google,
-                              color: Theme.of(context).canvasColor,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            final user = await signInWithApple();
-                            if (user == null) {
-                              return;
-                            }
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                            InkWell(
+                              onTap: () async {
+                                final user = await signInWithApple();
+                                if (user == null) {
+                                  return;
+                                }
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainScreenPage(),
+                                  ),
+                                  (r) => false,
+                                );
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 5,
+                                      color: Color(0x3314181B),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.apple,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
                               ),
-                              (r) => false,
-                            );
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 5,
-                                  color: Color(0x3314181B),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              shape: BoxShape.circle,
                             ),
-                            alignment: const AlignmentDirectional(0, 0),
-                            child: FaIcon(
-                              FontAwesomeIcons.apple,
-                              color: Theme.of(context).canvasColor,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            final user = await signInWithFacebook();
-                            if (user == null) {
-                              return;
-                            }
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                            InkWell(
+                              onTap: () async {
+                                final user = await signInWithFacebook();
+                                if (user == null) {
+                                  return;
+                                }
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainScreenPage(),
+                                  ),
+                                  (r) => false,
+                                );
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 5,
+                                      color: Color(0x3314181B),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  shape: BoxShape.circle,
+                                ),
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.facebookF,
+                                  color: Theme.of(context).canvasColor,
+                                  size: 24,
+                                ),
                               ),
-                              (r) => false,
-                            );
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 5,
-                                  color: Color(0x3314181B),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              shape: BoxShape.circle,
                             ),
-                            alignment: const AlignmentDirectional(0, 0),
-                            child: FaIcon(
-                              FontAwesomeIcons.facebookF,
-                              color: Theme.of(context).canvasColor,
-                              size: 24,
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: const BoxDecoration(
+                                color: Colors.black,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    color: Color(0x3314181B),
+                                    offset: Offset(0, 2),
+                                  )
+                                ],
+                                shape: BoxShape.circle,
+                              ),
+                              alignment: const AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Icons.phone_sharp,
+                                color: Theme.of(context).canvasColor,
+                                size: 24,
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 5,
-                                color: Color(0x3314181B),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: const AlignmentDirectional(0, 0),
-                          child: Icon(
-                            Icons.phone_sharp,
-                            color: Theme.of(context).canvasColor,
-                            size: 24,
-                          ),
-                        ),
-                      ],
-                    ),
+                      )
+                    ]),
                   ),
                 ],
               ),

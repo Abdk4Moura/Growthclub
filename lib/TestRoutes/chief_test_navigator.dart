@@ -24,7 +24,7 @@ class TestNavigatorWidget extends StatelessWidget {
       'CreateTask': CreateTaskPage,
       'CallSomeone': null,
       'ActivityLog': TrackMyProgressStoryPage,
-      'Chat': ChatPageWidget,
+      'Chat': ChatPage,
       'ForgotPassword': ForgotPasswordPage,
       'PhoneSignIn': SignInWithPhonePage,
     }.entries.toList();

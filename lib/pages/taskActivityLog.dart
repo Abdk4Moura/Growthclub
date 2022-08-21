@@ -1,18 +1,17 @@
+import 'package:flutter/material.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class TrackMyProgressStoryWidget extends StatefulWidget {
-  const TrackMyProgressStoryWidget({Key? key}) : super(key: key);
+class TrackMyProgressStoryPage extends StatefulWidget {
+  const TrackMyProgressStoryPage({Key? key}) : super(key: key);
 
   @override
-  _TrackMyProgressStoryWidgetState createState() =>
-      _TrackMyProgressStoryWidgetState();
+  _TrackMyProgressStoryPageState createState() =>
+      _TrackMyProgressStoryPageState();
 }
 
-class _TrackMyProgressStoryWidgetState
-    extends State<TrackMyProgressStoryWidget> {
+class _TrackMyProgressStoryPageState extends State<TrackMyProgressStoryPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -114,15 +113,15 @@ class _TrackMyProgressStoryWidgetState
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   'Andrew Daniels',
                                   style: Theme.of(context).subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    fontFamily: 'Lexend Deca',
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],
@@ -228,15 +227,15 @@ class _TrackMyProgressStoryWidgetState
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   'Design Team',
                                   style: Theme.of(context).subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Theme.of(context).alternate,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    fontFamily: 'Lexend Deca',
+                                    color: Theme.of(context).alternate,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],
@@ -342,15 +341,15 @@ class _TrackMyProgressStoryWidgetState
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                 child: Text(
                                   '#402 - Contractor',
                                   style: Theme.of(context).subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    fontFamily: 'Lexend Deca',
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ChatPageWidget extends StatefulWidget {
-  const ChatPageWidget({Key? key}) : super(key: key);
+class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
-  State<ChatPageWidget> createState() => _ChatPageWidgetState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageWidgetState extends State<ChatPageWidget> {
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: Put a tangible thing in this

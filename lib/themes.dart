@@ -14,8 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 //   // _ProvisionaryFFTheme.of(BuildContext context) : Theme.of(context);
 // }
 
-class themeColumnWidget extends StatelessWidget {
-  const themeColumnWidget({super.key});
+class ThemeColumnWidget extends StatelessWidget {
+  const ThemeColumnWidget({super.key});
 
   Widget build(BuildContext context) {
     return Column(
