@@ -6,6 +6,7 @@ import 'package:growthclub/TestRoutes/first_test.dart';
 import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/TestRoutes/Routes/starter.dart';
 import 'package:growthclub/TestRoutes/Routes/login_register.dart';
+import 'package:growthclub/pages/test_canvas.dart';
 
 // global VARS
 
@@ -21,16 +22,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePageWidget(),
+        home: TestCanvas(), // HomePageWidget()
         theme: ThemeData(textTheme: GoogleFonts.montserratTextTheme()).copyWith(
             textTheme: TextTheme(
+                labelMedium: TextStyle(fontSize: 20),
+                labelLarge: TextStyle(fontSize: 20),
                 labelSmall: TextStyle(fontSize: 14),
                 bodySmall: TextStyle(fontSize: 14),
                 bodyMedium: TextStyle(fontSize: 16),
                 bodyLarge: TextStyle(fontSize: 18),
                 titleSmall: TextStyle(fontSize: 20),
                 titleMedium: TextStyle(fontSize: 22),
-                titleLarge: TextStyle(fontSize: 24))));
+                titleLarge: TextStyle(fontSize: 24)),
+            cardColor: Color(0xA44F4FFF)));
   }
 }
 

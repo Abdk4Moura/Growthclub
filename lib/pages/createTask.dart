@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/growthron_ui.dart';
 
-class MainScreenPageWidget extends StatefulWidget {
-  const MainScreenPageWidget({Key? key}) : super(key: key);
+class CreateTaskPage extends StatefulWidget {
+  const CreateTaskPage({Key? key}) : super(key: key);
 
   @override
-  _MainScreenPageWidgetState createState() => _MainScreenPageWidgetState();
+  _CreateTaskPageState createState() => _CreateTaskPageState();
 }
 
-class _MainScreenPageWidgetState extends State<MainScreenPageWidget> {
+class _CreateTaskPageState extends State<CreateTaskPage> {
   String? teamSelectValue;
   TextEditingController? shortBioController;
   TextEditingController? userNameController;

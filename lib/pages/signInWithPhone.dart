@@ -5,14 +5,14 @@ import 'package:growthclub/auth/phoneSignIn.dart';
 import '../auth/emailAnd.dart';
 import '../growthron_ui.dart';
 
-class SignInWithPhoneWidget extends StatefulWidget {
-  const SignInWithPhoneWidget({Key? key}) : super(key: key);
+class SignInWithPhonePage extends StatefulWidget {
+  const SignInWithPhonePage({Key? key}) : super(key: key);
 
   @override
-  _SignInWithPhoneWidgetState createState() => _SignInWithPhoneWidgetState();
+  _SignInWithPhonePageState createState() => _SignInWithPhonePageState();
 }
 
-class _SignInWithPhoneWidgetState extends State<SignInWithPhoneWidget> {
+class _SignInWithPhonePageState extends State<SignInWithPhonePage> {
   TextEditingController? emailAddressController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

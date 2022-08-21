@@ -8,14 +8,14 @@ import 'package:growthclub/themes.dart';
 import '../../growthron_ui.dart';
 import '../../auth/auth.dart';
 
-class RegisterPageWidget extends StatefulWidget {
-  const RegisterPageWidget({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageWidgetState createState() => _RegisterPageWidgetState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _RegisterPageWidgetState extends State<RegisterPageWidget> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController? textController1;
   TextEditingController? textController2;
   TextEditingController? textController3;
@@ -196,8 +196,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                                builder: (context) => const MainScreenPage(),
                               ),
                               (r) => false,
                             );
@@ -233,8 +232,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                                builder: (context) => const MainScreenPage(),
                               ),
                               (r) => false,
                             );
@@ -270,8 +268,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPageWidget(),
+                                builder: (context) => const MainScreenPage(),
                               ),
                               (r) => false,
                             );
@@ -331,7 +328,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MainScreenPageWidget(),
+                            builder: (context) => const MainScreenPage(),
                           ),
                           (r) => false,
                         );
@@ -341,7 +338,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         width: 300,
                         height: 50,
                         color: Colors.black,
-                        textStyle: OutfitTheme.subtitle1?.apply(
+                        textStyle: OutfitTheme.subtitle1.apply(
                           color: Colors.white,
                         ),
                         elevation: 3,

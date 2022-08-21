@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TrackMyProgressStoryWidget extends StatefulWidget {
-  const TrackMyProgressStoryWidget({Key? key}) : super(key: key);
+class TrackMyProgressStoryPage extends StatefulWidget {
+  const TrackMyProgressStoryPage({Key? key}) : super(key: key);
 
   @override
-  _TrackMyProgressStoryWidgetState createState() =>
-      _TrackMyProgressStoryWidgetState();
+  _TrackMyProgressStoryPageState createState() =>
+      _TrackMyProgressStoryPageState();
 }
 
-class _TrackMyProgressStoryWidgetState
-    extends State<TrackMyProgressStoryWidget> {
+class _TrackMyProgressStoryPageState extends State<TrackMyProgressStoryPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

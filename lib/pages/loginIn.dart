@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const MainScreenPageWidget(),
+                                          const MainScreenPage(),
                                     ),
                                     (r) => false,
                                   );
@@ -221,7 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const MainScreenPageWidget(),
+                                        const MainScreenPage(),
                                   ),
                                   (r) => false,
                                 );
@@ -258,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const MainScreenPageWidget(),
+                                        const MainScreenPage(),
                                   ),
                                   (r) => false,
                                 );
@@ -295,7 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const MainScreenPageWidget(),
+                                        const MainScreenPage(),
                                   ),
                                   (r) => false,
                                 );
