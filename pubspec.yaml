@@ -61,6 +61,7 @@ dependencies:
     sdk: flutter
   shared_preferences: ^2.0.11
   google_fonts: ^3.0.1
+  dropdown_search: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -100,14 +101,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-# fonts:
-#   - family: Montserrat
-#     fonts:
-#       - asset: assets/fonts/Montserrat-Regular.ttf
-#         style: Regular
-#       - asset: assets/fonts/Montserrat-Italic.ttf
-#         style: Italic
-#       - asset: assets/fonts/Montserrat-Bold.ttf
-#         style: Bold
+fonts:
+ - family: Montserrat
+   fonts:
+     - asset: assets/fonts/Montserrat-Regular.ttf
+       style: Regular
+     - asset: assets/fonts/Montserrat-Italic.ttf
+       style: Italic
+     - asset: assets/fonts/Montserrat-Bold.ttf
+       style: Bold
+ - family: Poppins
+   fonts:
+     - asset: assets/fonts/Poppins-Thin.ttf
+       style: Regular
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

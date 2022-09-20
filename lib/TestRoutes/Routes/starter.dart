@@ -30,16 +30,16 @@ class StarterPage1 extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Column(
                     children: [
                       Container(
                         width: 300,
-                        child: Text('Welcome to Growth Clubs',
+                        child: const Text('Welcome to Growth Clubs',
                             textAlign: TextAlign.center),
                       ),
                       Padding(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Text('Because you are, I am',
                               style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.w300,
@@ -47,9 +47,9 @@ class StarterPage1 extends StatelessWidget {
                               ))),
                     ],
                   ),
-                  SizedBox(height: 300),
+                  const SizedBox(height: 300),
                   Container(
-                    padding: EdgeInsets.all(25),
+                    padding: const EdgeInsets.all(25),
                     child: Image.asset(
                       "assets/images/page_vector.png",
                       fit: BoxFit.fitHeight,
@@ -91,7 +91,7 @@ class StarterPage2 extends StatelessWidget {
               color: Colors.white,
               fontSize: 39,
               shadows: [
-                Shadow(
+                const Shadow(
                   blurRadius: 5.0,
                   color: Color.fromARGB(255, 24, 24, 24),
                   offset: Offset(0.0, 5.0),
@@ -113,12 +113,12 @@ class StarterPage2 extends StatelessWidget {
                           child: Text(bigText, textAlign: TextAlign.center),
                         ),
                         Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                     horizontal: 55, vertical: 20)
                                 .copyWith(bottom: 0),
                             child: RichText(
                                 textAlign: TextAlign.center,
-                                text: TextSpan(children: <TextSpan>[
+                                text: const TextSpan(children: <TextSpan>[
                                   TextSpan(
                                       text:
                                           'Make progress on your goals with a ',
@@ -151,8 +151,8 @@ SizedBox GetStartedButton({VoidCallback? callBack}) {
       height: 75,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all(Color.fromARGB(255, 43, 158, 207)),
+          backgroundColor: MaterialStateProperty.all(
+              const Color.fromARGB(255, 43, 158, 207)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
@@ -178,7 +178,7 @@ TextStyle HeadingTextStyle = GoogleFonts.montserrat(
     color: Colors.white,
     fontSize: 39,
     shadows: [
-      Shadow(
+      const Shadow(
         blurRadius: 5.0,
         color: Color.fromARGB(255, 90, 90, 90),
         offset: Offset(0.0, 5.0),
@@ -210,13 +210,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
       final prefs = await SharedPreferences.getInstance();
 
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => AppPage1(),
+        builder: (context) => const AppPage1(),
       ));
 
       return;
     }
     controller.animateToPage(rotate(index),
-        duration: Duration(seconds: 1), curve: Curves.easeInOut);
+        duration: const Duration(seconds: 1), curve: Curves.easeInOut);
   }
 
   @override

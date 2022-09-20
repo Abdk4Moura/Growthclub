@@ -111,7 +111,8 @@ class GrowthronButton extends StatelessWidget {
       height: options.height,
       child: ElevatedButton(
         style: ButtonStyle(
-            padding: MaterialStatePropertyAll<EdgeInsets?>(EdgeInsets.all(20)),
+            padding:
+                const MaterialStatePropertyAll<EdgeInsets?>(EdgeInsets.all(20)),
             backgroundColor: MaterialStatePropertyAll<Color?>(options.color),
             elevation: MaterialStatePropertyAll<double?>(options.elevation),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -132,7 +133,9 @@ class GrowthronIconButton extends StatelessWidget {
       this.borderWidth,
       required this.onPressed,
       required this.icon,
-      this.buttonSize});
+      this.buttonSize,
+      this.color,
+      this.padding});
 
   final Color? borderColor;
   final double? borderRadius;
@@ -140,12 +143,17 @@ class GrowthronIconButton extends StatelessWidget {
   final double? buttonSize;
   final Icon icon;
   final VoidVoidCallback onPressed;
+  final Color? color;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Ink(
+      padding: padding ?? const EdgeInsets.all(0),
       decoration: ShapeDecoration(
+          color: color ?? Colors.transparent,
           shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 10),
               side: BorderSide(
                   color: borderColor ?? Colors.transparent,
                   width: borderWidth ?? 0))),
@@ -153,7 +161,6 @@ class GrowthronIconButton extends StatelessWidget {
         icon: icon,
         onPressed: onPressed,
         iconSize: buttonSize,
-        color: Theme.of(context).primaryColor,
       ),
     );
   }
