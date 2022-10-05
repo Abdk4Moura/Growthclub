@@ -21,8 +21,10 @@ class GTheme {
   static const Color secondaryColor = Color(0xFFDAEAF1);
   static const Color canvasColor = Color(0xFFD0EEFA);
   static const Color primaryButtonColor = Color(0xFF26A0D3);
+  static const Color primaryButtonHoverColor = Color(0xFF26A0D3);
   static final TextStyle smallSubtitle =
       poppins.copyWith(fontSize: 10, fontWeight: FontWeight.w300);
+  static const Color TextButtonOriginalColor = Colors.black;
 }
 
 final GBorderRadius = BorderRadius.circular(4);

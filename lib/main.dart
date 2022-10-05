@@ -7,6 +7,9 @@ import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/TestRoutes/Routes/starter.dart';
 import 'package:growthclub/TestRoutes/Routes/login_register.dart';
 import 'package:growthclub/pages/createGoal.dart';
+import 'package:growthclub/pages/createGoal_one.dart';
+import 'package:growthclub/pages/createTask.dart';
+import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const CreateGoal(), // HomePageWidget()
+        home: const Stage1(), // HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
                 textTheme: const TextTheme(
