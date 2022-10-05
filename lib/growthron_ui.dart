@@ -157,10 +157,12 @@ class GrowthronIconButton extends StatelessWidget {
               side: BorderSide(
                   color: borderColor ?? Colors.transparent,
                   width: borderWidth ?? 0))),
-      child: IconButton(
-        icon: icon,
-        onPressed: onPressed,
-        iconSize: buttonSize,
+      child: Center(
+        child: IconButton(
+          icon: icon,
+          onPressed: onPressed,
+          iconSize: buttonSize,
+        ),
       ),
     );
   }

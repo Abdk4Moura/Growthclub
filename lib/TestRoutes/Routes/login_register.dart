@@ -337,7 +337,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         width: 300,
                         height: 50,
                         color: Colors.black,
-                        textStyle: OutfitTheme.subtitle1.apply(
+                        textStyle: OutfitTheme.subtitle1?.apply(
                           color: Colors.white,
                         ),
                         elevation: 3,
