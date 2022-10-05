@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'pages/createGoal_two.dart';
+import 'package:growthclub/pages/creategoal_beginning.dart';
 
 // global VARS
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const Stage2(), // HomePageWidget()
+        home: const NewGoalPage(), // HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
                 textTheme: const TextTheme(
