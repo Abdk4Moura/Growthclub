@@ -13,6 +13,8 @@ import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 
+import 'pages/createGoal_two.dart';
+
 // global VARS
 
 void main() {
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const Stage1(), // HomePageWidget()
+        home: const Stage2(), // HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
                 textTheme: const TextTheme(
