@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:growthclub/pages/find_your_club.dart';
+import 'package:growthclub/pages/onboarding.dart';
 
 // global VARS
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const FindYourClubPage(), //  HomePageWidget()
+        home: const SplashScreen(), //  HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
                 iconTheme: const IconThemeData(
