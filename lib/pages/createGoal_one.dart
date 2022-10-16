@@ -164,7 +164,7 @@ class _TextCheckListItemState extends State<TextCheckListItem> {
 
     Widget button = TextButton(
       style: TextButton.styleFrom(
-        primary: color,
+        foregroundColor: color,
         padding: const EdgeInsets.fromLTRB(0, 16.0, 16.0, 16.0),
         textStyle: GTheme.subtitle1
             .copyWith(fontSize: 12, color: color, decoration: decoration),

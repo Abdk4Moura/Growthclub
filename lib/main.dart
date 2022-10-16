@@ -6,12 +6,16 @@ import 'package:growthclub/TestRoutes/first_test.dart';
 import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/TestRoutes/Routes/starter.dart';
 import 'package:growthclub/TestRoutes/Routes/login_register.dart';
+import 'package:growthclub/pages/activity.dart';
 import 'package:growthclub/pages/createGoal.dart';
 import 'package:growthclub/pages/createGoal_one.dart';
+import 'package:growthclub/pages/createGoal_three.dart';
 import 'package:growthclub/pages/createTask.dart';
-import 'package:growthclub/pages/creategoal_beginning.dart';
+import 'package:growthclub/pages/find_your_club.dart';
+import 'package:growthclub/pages/new_goal.dart';
 import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/pages/register.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 
 import 'pages/createGoal_two.dart';
@@ -28,9 +32,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const NewGoalPage(), // HomePageWidget()
+        home: const FindYourClubPage(), //  HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
+                iconTheme: const IconThemeData(
+                  color: Colors.grey,
+                ),
                 textTheme: const TextTheme(
                         labelMedium: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w700),

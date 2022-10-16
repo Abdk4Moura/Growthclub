@@ -9,7 +9,7 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: body,
+        body: SafeArea(child: body),
         bottomNavigationBar: const BottomAppBar(child: ButtonBarWidget()));
   }
 }
@@ -26,7 +26,7 @@ class ButtonBarWidget extends StatelessWidget {
         alignment: MainAxisAlignment.start,
         children: <Widget>[
           ElevatedButton(
-            style: ButtonStyle(
+            style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.white)),
             child: Image.asset(testHomeIcon, fit: BoxFit.contain),
             onPressed: () {},

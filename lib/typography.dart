@@ -25,6 +25,7 @@ class GTheme {
   static final TextStyle smallSubtitle =
       poppins.copyWith(fontSize: 10, fontWeight: FontWeight.w300);
   static const Color TextButtonOriginalColor = Colors.black;
+  static const Color mainIconColor = Colors.black;
 }
 
 final GBorderRadius = BorderRadius.circular(4);
