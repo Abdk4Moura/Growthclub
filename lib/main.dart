@@ -15,6 +15,7 @@ import 'package:growthclub/pages/find_your_club.dart';
 import 'package:growthclub/pages/new_goal.dart';
 import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/pages/onboarding.dart';
 import 'package:growthclub/pages/register.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const FindYourClubPage(), //  HomePageWidget()
+        home: const SplashScreen(), //  HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
                 iconTheme: const IconThemeData(
