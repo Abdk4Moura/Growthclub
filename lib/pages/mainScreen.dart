@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:growthclub/TestLibrary/components.dart';
 import 'package:growthclub/components/after_auth_base.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 import 'package:growthclub/typography.dart';
@@ -33,86 +34,60 @@ class _MainScreenPageState extends State<MainScreenPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-        body: SafeArea(
-      child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
+        body: Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              color: Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                ),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                    child: Image.asset(
-                      testAppHeroImage,
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.asset(
+                    testAppHeroImage,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                child: Text('Hey, John', style: GTheme.title2),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              height: 45,
-              child: // Generated code for this ListView Widget...
-                  ListView.builder(
-                padding: EdgeInsets.zero,
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CategoriesItem('#${items[index]}');
-                },
-              )),
-          const MainScreenTasksTrack(),
-          const TestContainer(),
-          GrowthronSubMenu(
-              hasAddButtonBeside: true,
-              headingText: 'Messages',
-              list: listTiles.map<Widget>(buildListTile).toList()),
-        ]),
-      ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+              child: Text('Hey, John', style: GTheme.title2),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Container(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            height: 45,
+            child: // Generated code for this ListView Widget...
+                ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CategoriesItem('#${items[index]}');
+              },
+            )),
+        const MainScreenTasksTrack(),
+        const TestContainer(),
+        GrowthronSubMenu(
+            hasAddButtonBeside: true,
+            headingText: 'Messages',
+            list: listTiles.map<Widget>(buildListTile).toList()),
+      ]),
     ));
-  }
-
-  ListTile buildListTile(list) {
-    String title = list[0];
-    String subtitle = list[1];
-    String leadingImage = list[2];
-
-    return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      title: Text(title, style: GTheme.bodyText3),
-      subtitle: Text(subtitle, style: GTheme.bodyText1),
-      leading: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: Image.network(
-          leadingImage,
-          width: 40,
-          height: 40,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
   }
 }
 
@@ -203,94 +178,6 @@ class _DisplayCheckListWidgetState extends State<DisplayCheckListWidget> {
   }
 }
 
-class CategoriesItem extends StatelessWidget {
-  CategoriesItem(
-    this.text, {
-    Key? key,
-  }) : super(key: key) {
-    index = _index++ % colorList.length;
-  }
-
-  final String text;
-  int index = 0;
-  static int _index = 0;
-  static List<Color> colorList = [
-    const Color(0xFF73D6DC),
-    const Color(0xFF9ECCE8),
-    const Color(0xcfffbeff),
-    const Color(0xffffd877)
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration:
-            BoxDecoration(color: colorList[index], borderRadius: GBorderRadius),
-        child: Center(
-          child: Text(text,
-              style: GTheme.bodyText2.copyWith(fontWeight: FontWeight.w200)),
-        ),
-      ),
-    );
-  }
-}
-
-class GrowthronCustomButton extends StatelessWidget {
-  const GrowthronCustomButton(
-      {Key? key,
-      required this.icon,
-      required this.text,
-      this.textStyle,
-      this.options,
-      required this.onPressed})
-      : super(key: key);
-
-  final IconData icon;
-  final String text;
-  final VoidVoidCallback onPressed;
-  final IconOptions? options;
-  final TextStyle? textStyle;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        child: Center(
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: options?.size,
-                color: options?.color,
-                semanticLabel: options?.semanticLabel,
-                textDirection: options?.textDirection,
-                shadows: options?.shadows,
-              ),
-              Text(text, style: textStyle)
-            ],
-          ),
-        ));
-  }
-}
-
-class IconOptions {
-  const IconOptions(
-      {this.size,
-      this.color,
-      this.semanticLabel,
-      this.textDirection,
-      this.shadows});
-
-  final double? size;
-  final Color? color;
-  final String? semanticLabel;
-  final TextDirection? textDirection;
-  final List<Shadow>? shadows;
-}
-
 class MainScreenCheckbox extends StatefulWidget {
   const MainScreenCheckbox({super.key});
 
@@ -333,7 +220,6 @@ class MainScreenCheckListTile extends StatefulWidget {
   const MainScreenCheckListTile(this.text, {Key? key}) : super(key: key);
 
   final String text;
-
   @override
   State<MainScreenCheckListTile> createState() =>
       _MainScreenCheckListTileState();

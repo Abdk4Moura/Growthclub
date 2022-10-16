@@ -7,8 +7,8 @@ import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/register.dart';
 import 'package:growthclub/pages/signInWithPhone.dart';
 
+import '../pages/activity.dart';
 import '../pages/mainScreen.dart';
-import '../pages/taskActivityLog.dart';
 import 'Routes/starter.dart';
 
 class TestNavigatorWidget extends StatelessWidget {
@@ -23,7 +23,7 @@ class TestNavigatorWidget extends StatelessWidget {
       'Register': RegisterPage,
       'CreateTask': CreateTaskPage,
       'CallSomeone': null,
-      'ActivityLog': TrackMyProgressStoryPage,
+      'ActivityLog': ActivityPage,
       'Chat': ChatPage,
       'ForgotPassword': ForgotPasswordPage,
       'PhoneSignIn': SignInWithPhonePage,

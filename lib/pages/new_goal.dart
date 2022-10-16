@@ -91,10 +91,8 @@ class _NewGoalPageState extends State<NewGoalPage> {
                   ),
                 ],
               ),
-              // TODO: Submit button
               Column(
                 children: [
-                  // TODO: Submit button,
                   GrowthronButton(
                       text: 'Next',
                       onPressed: () {},
@@ -103,7 +101,7 @@ class _NewGoalPageState extends State<NewGoalPage> {
                         height: 50,
                         color: GTheme.primaryButtonColor,
                         textStyle: GTheme.title3.copyWith(
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
                         elevation: 3,

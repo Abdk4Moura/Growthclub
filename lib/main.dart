@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:growthclub/pages/creategoal_beginning.dart';
+import 'package:growthclub/pages/find_your_club.dart';
 
 // global VARS
 
@@ -15,9 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const NewGoalPage(), // HomePageWidget()
+        home: const FindYourClubPage(), //  HomePageWidget()
         theme: ThemeData(
                 dividerColor: const Color(0xFFBEBEBE),
+                iconTheme: const IconThemeData(
+                  color: Colors.grey,
+                ),
                 textTheme: const TextTheme(
                         labelMedium: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w700),
