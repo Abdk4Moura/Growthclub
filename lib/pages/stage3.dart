@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:growthclub/pages/createGoal_one.dart';
+import 'package:growthclub/pages/stage1.dart';
 
 class Stage3 extends StatelessWidget {
   const Stage3({Key? key}) : super(key: key);

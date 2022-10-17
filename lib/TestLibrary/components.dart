@@ -1,11 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growthclub/growthron_ui.dart';
 import 'package:growthclub/typography.dart';
 
 class CategoriesItem extends StatelessWidget {
-  CategoriesItem(
-    this.text, {
+  CategoriesItem(this.text, {
     this.fontSize,
     this.borderRadius,
     this.padding,
@@ -30,7 +30,7 @@ class CategoriesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 4),
       child: Container(
         padding:
             padding ?? const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -71,6 +71,13 @@ ListTile buildListTile(list) {
   );
 }
 
+Divider buildDivider() {
+  return const Divider(
+    thickness: 0.5,
+    height: 0.5,
+  );
+}
+
 Widget buildGrowthronSectionListTile(
     {required String title, required int membersCount, required leadingImage}) {
   return ListTile(
@@ -84,9 +91,9 @@ Widget buildGrowthronSectionListTile(
         onPressed: () {},
         style: ButtonStyle(
             backgroundColor:
-                const MaterialStatePropertyAll(GTheme.primaryButtonColor),
+            const MaterialStatePropertyAll(GTheme.primaryButtonColor),
             shadowColor:
-                MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
+            MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
         child: Text(
           'join',
           style: GTheme.bodyText3.copyWith(
@@ -108,11 +115,10 @@ Widget buildGrowthronSectionListTile(
 }
 
 class GrowthronSubMenu extends StatelessWidget {
-  const GrowthronSubMenu(
-      {Key? key,
-      required this.headingText,
-      required this.list,
-      this.hasAddButtonBeside})
+  const GrowthronSubMenu({Key? key,
+    required this.headingText,
+    required this.list,
+    this.hasAddButtonBeside})
       : super(key: key);
 
   final String headingText;
@@ -175,15 +181,15 @@ class GrowthronSubHeading extends StatelessWidget {
         Container(
           child: hasAddButton
               ? Card(
-                  color: Colors.white,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  shape:
-                      CircleBorder(side: BorderSide(width: 2, color: iconGrey)),
-                  child: IconButton(
-                    color: iconGrey,
-                    icon: const Icon(FontAwesomeIcons.plus),
-                    onPressed: () {},
-                  ))
+              color: Colors.white,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape:
+              CircleBorder(side: BorderSide(width: 2, color: iconGrey)),
+              child: IconButton(
+                color: iconGrey,
+                icon: const Icon(FontAwesomeIcons.plus),
+                onPressed: () {},
+              ))
               : Container(),
         )
       ],
@@ -192,12 +198,11 @@ class GrowthronSubHeading extends StatelessWidget {
 }
 
 class IconOptions {
-  const IconOptions(
-      {this.size,
-      this.color,
-      this.semanticLabel,
-      this.textDirection,
-      this.shadows});
+  const IconOptions({this.size,
+    this.color,
+    this.semanticLabel,
+    this.textDirection,
+    this.shadows});
 
   final double? size;
   final Color? color;
@@ -207,13 +212,12 @@ class IconOptions {
 }
 
 class GrowthronCustomButton extends StatelessWidget {
-  const GrowthronCustomButton(
-      {Key? key,
-      required this.icon,
-      required this.text,
-      this.textStyle,
-      this.options,
-      required this.onPressed})
+  const GrowthronCustomButton({Key? key,
+    required this.icon,
+    required this.text,
+    this.textStyle,
+    this.options,
+    required this.onPressed})
       : super(key: key);
 
   final IconData icon;
@@ -242,4 +246,121 @@ class GrowthronCustomButton extends StatelessWidget {
           ),
         ));
   }
+}
+
+Widget buildTextFormField(
+    {TextEditingController? controller,
+    String? helperText,
+    String? hintText,
+    Icon? suffixIcon}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: TextFormField(
+      controller: controller,
+      autofocus: true,
+      obscureText: false,
+      decoration: InputDecoration(
+        helperText: helperText,
+        helperStyle: helperText == null ? null : GTheme.smallSubtitle,
+        contentPadding: const EdgeInsets.fromLTRB(15, 8, 0, 8),
+        hintText: hintText,
+        hintStyle: hintText == null ? null : GTheme.inputHintText,
+        suffixIcon: suffixIcon,
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: GTheme.primaryButtonColor,
+            width: 1.5,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: GTheme.primaryButtonColor,
+            width: 1.7,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      style: GTheme.bodyText1,
+      keyboardType: TextInputType.text,
+    ),
+  );
+}
+
+SizedBox closeIconButton(BuildContext context) {
+  return SizedBox(
+    width: 40,
+    height: 40,
+    child: FittedBox(
+      fit: BoxFit.scaleDown,
+      child: GrowthronIconButton(
+        borderRadius: 5,
+        buttonSize: 15,
+        color: GTheme.canvasColor,
+        icon: const Icon(
+          Icons.close,
+          color: Colors.black,
+        ),
+        onPressed: () async {
+          Navigator.pop(context);
+        },
+      ),
+    ),
+  );
+}
+
+class _MainScreenCheckListTileState extends State<MainScreenCheckListTile> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      contentPadding: EdgeInsets.zero,
+      value: isChecked,
+      onChanged: (bool? value) {
+        widget.checkViewCallback(value!);
+        setState(() {
+          isChecked = value;
+        });
+      },
+      title: AutoSizeText(widget.text,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+          style: widget.textStyle ??
+              GTheme.bodyText3.copyWith(
+                fontWeight: FontWeight.w100,
+              )),
+      dense: false,
+      activeColor: widget.color ?? const Color(0xff50d055),
+      //Color(0x7300561D),
+      checkColor: widget.checkColor ?? GTheme.secondaryColor,
+      tileColor: widget.tileColor ?? Colors.transparent,
+      controlAffinity: ListTileControlAffinity.leading,
+      checkboxShape: const CircleBorder(side: BorderSide(color: Colors.black)),
+    );
+  }
+}
+
+void _f(bool value) {}
+
+class MainScreenCheckListTile extends StatefulWidget {
+  const MainScreenCheckListTile(this.text,
+      {Key? key,
+      this.textStyle,
+      this.color,
+      this.checkColor,
+      this.tileColor,
+      this.checkViewCallback = _f})
+      : super(key: key);
+
+  final String text;
+  final TextStyle? textStyle;
+  final Color? color;
+  final Color? checkColor;
+  final Color? tileColor;
+  final void Function(bool) checkViewCallback;
+
+  @override
+  State<MainScreenCheckListTile> createState() =>
+      _MainScreenCheckListTileState();
 }

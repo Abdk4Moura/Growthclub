@@ -11,19 +11,14 @@ class CreateGoal extends StatefulWidget {
 
 class _CreateGoalState extends State<CreateGoal> {
   String? teamSelectValue;
-  TextEditingController? shortBioController;
-  TextEditingController? userNameController;
-  TextEditingController whatsYourGoalController = TextEditingController();
-  String? userSelectValue1;
-  String? userSelectValue2;
+  TextEditingController? whatsYourGoalController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    shortBioController = TextEditingController();
-    userNameController = TextEditingController();
+    whatsYourGoalController = TextEditingController();
   }
 
   @override
