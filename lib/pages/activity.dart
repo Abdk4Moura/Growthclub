@@ -5,6 +5,8 @@ import 'package:growthclub/TestLibrary/components.dart';
 import 'package:growthclub/assets_names.dart';
 import 'package:growthclub/typography.dart';
 
+import '../components/after_auth_base.dart';
+
 class ActivityPage extends StatefulWidget {
   const ActivityPage({Key? key}) : super(key: key);
 
@@ -41,37 +43,35 @@ class _ActivityPageState extends State<ActivityPage> {
               'Hey guys! I built a tool that automatically converts your speech in Yoruba into English text')
 
     ];
-    return Scaffold(
+    return BasePage(
       key: scaffoldKey,
       backgroundColor: Theme.of(context).canvasColor,
-      body: SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.max, children: [
-          // heading
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 5.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Activity',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                IconButton(
-                  color: GTheme.mainIconColor,
-                  icon: const Icon(Icons.notifications),
-                  onPressed: () {},
-                )
-              ],
-            ),
+      body: Column(mainAxisSize: MainAxisSize.max, children: [
+        // heading
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 5.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Activity',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              IconButton(
+                color: GTheme.mainIconColor,
+                icon: const Icon(Icons.notifications),
+                onPressed: () {},
+              )
+            ],
           ),
-          Expanded(
-              child: ListView(
-            children: cardList,
-          ))
-        ]),
-      ),
+        ),
+        Expanded(
+            child: ListView(
+          children: cardList,
+        ))
+      ]),
     );
   }
 
@@ -107,13 +107,6 @@ class MCWWrapper extends StatelessWidget {
           child: content,
         ),
       ],
-    );
-  }
-
-  Divider buildDivider() {
-    return const Divider(
-      thickness: 0.5,
-      height: 0.5,
     );
   }
 }

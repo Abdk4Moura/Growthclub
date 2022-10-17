@@ -106,7 +106,7 @@ class _MainScreenTasksTrackState extends State<MainScreenTasksTrack> {
       child: Column(
         children: [
           const DisplayCheckListWidget(),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           GrowthronButton(
             onPressed: () {},
             text: 'Report Progress',
@@ -168,9 +168,9 @@ class _DisplayCheckListWidgetState extends State<DisplayCheckListWidget> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: GTheme.secondaryColor,
+            color: const Color(0xffeff8f9),
             borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(5),
         child: Column(children: const <MainScreenCheckListTile>[
           MainScreenCheckListTile('Complete Module 6 of Python'),
           MainScreenCheckListTile('Work on group project')
@@ -231,6 +231,7 @@ class _MainScreenCheckListTileState extends State<MainScreenCheckListTile> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
+      contentPadding: EdgeInsets.zero,
       value: isChecked,
       onChanged: (bool? value) {
         setState(() {
