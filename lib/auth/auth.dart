@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 // @AppleStuff
 import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 /// Generates a cryptographically secure random nonce, to be included in a
@@ -46,6 +44,30 @@ String sha256ofString(String input) {
   final digest = sha256.convert(bytes);
   return digest.toString();
 }
+
+// Future<UserCredential> signInWithEmail() async {
+//   var acs = ActionCodeSettings(
+//     // URL you want to redirect back to. The domain (www.example.com) for this
+//     // URL must be whitelisted in the Firebase Console.
+//       url: 'https://www.example.com/finishSignUp?cartId=1234',
+//       // This must be true
+//       handleCodeInApp: true,
+//       iOSBundleId: 'com.example.ios',
+//       androidPackageName: 'com.example.android',
+//       // installIfNotAvailable
+//       androidInstallApp: true,
+//       // minimumVersion
+//       androidMinimumVersion: '12');
+//
+//   var emailAuth = 'someemail@domain.com';
+//   FirebaseAuth.instance.sendSignInLinkToEmail(
+//       email: emailAuth, actionCodeSettings: acs)
+//       .catchError((onError) =>
+//       print('Error sending email verification $onError'))
+//       .then((value) => print('Successfully sent email verification'));
+//
+//   return
+// }
 
 Future<UserCredential> signInWithApple() async {
   // To prevent replay attacks with the credential returned from Apple, we

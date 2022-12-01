@@ -61,7 +61,7 @@ ListTile buildListTile(list) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40),
       ),
-      child: Image.network(
+      child: Image.asset(
         leadingImage,
         width: 40,
         height: 40,
@@ -73,7 +73,7 @@ ListTile buildListTile(list) {
 
 Divider buildDivider() {
   return const Divider(
-    thickness: 0.5,
+    thickness: 0.2,
     height: 0.5,
   );
 }
@@ -104,7 +104,7 @@ Widget buildGrowthronSectionListTile(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40),
       ),
-      child: Image.network(
+      child: Image.asset(
         leadingImage,
         width: 40,
         height: 40,

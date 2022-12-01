@@ -44,7 +44,8 @@ class TestNavigatorWidget extends StatelessWidget {
         return InkWell(
           onTap: () async {
             // TODO: Reconfigure the code below to fit Navigator guidelines
-            await Navigator.of(context).push(pageRouting);
+            await Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => pageRouting));
           },
           child: Card(
             color: Colors.green,

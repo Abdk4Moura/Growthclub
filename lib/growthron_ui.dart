@@ -111,15 +111,13 @@ class GrowthronButton extends StatelessWidget {
       height: options.height,
       child: ElevatedButton(
         style: ButtonStyle(
-            padding:
-                const MaterialStatePropertyAll<EdgeInsets?>(EdgeInsets.all(20)),
             backgroundColor: MaterialStatePropertyAll<Color?>(options.color),
             elevation: MaterialStatePropertyAll<double?>(options.elevation),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: options.borderRadius ?? BorderRadius.zero,
                 side: options.borderSide ?? BorderSide.none))),
         onPressed: onPressed,
-        child: Text(text, style: options.textStyle),
+        child: Center(child: Text(text, style: options.textStyle)),
       ),
     );
   }
