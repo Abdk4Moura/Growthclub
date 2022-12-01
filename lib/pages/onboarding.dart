@@ -8,6 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart'
 
 typedef VoidCallback = void Function();
 
+class NavigatorDirector extends StatelessWidget {
+  const NavigatorDirector({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

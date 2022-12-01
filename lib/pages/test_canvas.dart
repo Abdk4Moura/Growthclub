@@ -1,4 +1,3 @@
-import 'package:firebase_core_web/firebase_core_web_interop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

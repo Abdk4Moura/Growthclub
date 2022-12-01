@@ -17,20 +17,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController? textController1;
-  TextEditingController? textController2;
-  TextEditingController? textController3;
-  TextEditingController? textController4;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    textController3 = TextEditingController();
-    textController4 = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
   @override
@@ -107,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             TextFormField(
-                              controller: textController2,
+                              controller: emailController,
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -134,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 16),
                             TextFormField(
-                              controller: textController3,
+                              controller: passwordController,
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -164,7 +160,10 @@ class _LoginPageState extends State<LoginPage> {
                                   0, 30, 0, 0),
                               child: GrowthronButton(
                                 onPressed: () async {
-                                  print('ButtonPrimary pressed ...');
+                                  final email = emailController.text;
+                                  final password = passwordController.text;
+
+                                  // createUser(emailAddress: email, password: password);
 
                                   await Navigator.pushAndRemoveUntil(
                                     context,
@@ -215,11 +214,12 @@ class _LoginPageState extends State<LoginPage> {
                             InkWell(
                               onTap: () async {
                                 final user = await signInWithGoogle();
-                                if (user.user == null) {
+                                if (user == null) {
                                   // user == null
                                   return;
                                 }
-                                await Navigator.pushAndRemoveUntil(
+
+                               await Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
@@ -358,6 +358,19 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+//   Future createUser({required String emailAddress, required String password}) async {
+//     // Reference to document
+//     // final doc = FirebaseFirestore.instance.collection('users').doc('my-id');
+//
+//     final json = {
+//       'email': emailAddress,
+//       'password': password,
+//       'birthday': DateTime(2001, 7, 28),
+//     };
+//
+//     // await doc.set(json);
+//   }
 }
 
 TextFormField GrowthronFormField(BuildContext context,

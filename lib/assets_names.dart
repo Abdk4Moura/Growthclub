@@ -5,13 +5,13 @@ const String testAvatar1 = '$iA/avatar1.png';
 const String testAvatar2 = '$iA/avatar2.png';
 const String jsAvatar = '$iA/jsSoloAvatar.png';
 const String avatarAlameen = '$iA/generic_avatar.png';
-const String avatar1 = '$iA/avatar1_gr.png';
-const String avatarDozie = '$iA/avatar_dozie_gr.png';
-const String splashImage = '$iA/growthron_white_logo_gr.png';
-const String coursesImage = '$iA/courses_gr.png';
-const String booksImage = '$iA/books_gr.png';
-const String jobsImage = '$iA/jobs_gr.png';
-const String jsImage = '$iA/js_gr.png';
+const String avatar1 = '$iA/avatar1.png';
+const String avatarDozie = '$iA/avatar_dozie.png';
+const String splashImage = '$iA/growthron_white_logo.png';
+const String coursesImage = '$iA/courses.png';
+const String booksImage = '$iA/books.png';
+const String jobsImage = '$iA/jobs.png';
+const String jsImage = '$iA/js.png';
 
 const List<List<String>> listTiles = [
   [

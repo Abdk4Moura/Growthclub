@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-Future<UserCredential> signInWithPhone(String phoneNumber) async {
+/* Future<UserCredential> */ signInWithPhone(String phoneNumber) async {
   var verificationResult = await FirebaseAuth.instance.verifyPhoneNumber(
     phoneNumber: phoneNumber,
     verificationCompleted: (PhoneAuthCredential credential) {},
@@ -12,5 +12,5 @@ Future<UserCredential> signInWithPhone(String phoneNumber) async {
 
   var hello = verificationResult;
 
-  return UserCredential();
+  // return UserCredential
 }

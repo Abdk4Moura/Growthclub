@@ -152,8 +152,8 @@ class ReactionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      IconButton(onPressed: () {}, icon: const Icon(Icons.message_outlined)),
-      IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border))
+      IconButton(onPressed: () {}, icon: const Icon(FontAwesomeIcons.comment)),
+      IconButton(onPressed: () {}, icon: const Icon(FontAwesomeIcons.heart))
     ]);
   }
 }
@@ -164,7 +164,7 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(src, fit: BoxFit.cover, width: double.infinity);
+    return Image.asset(src, fit: BoxFit.cover, width: double.infinity);
   }
 }
 
@@ -226,7 +226,7 @@ class UserAndStatusWidget extends StatelessWidget {
           padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 10, 2),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(40),
-            child: Image.network(
+            child: Image.asset(
               avatar,
               width: 40,
               height: 40,

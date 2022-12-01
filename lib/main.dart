@@ -1,29 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:growthclub/TestRoutes/first_test.dart';
-import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/TestRoutes/Routes/starter.dart';
 import 'package:growthclub/TestRoutes/Routes/login_register.dart';
+import 'package:growthclub/firebase_options.dart';
 import 'package:growthclub/pages/activity.dart';
+import 'package:growthclub/pages/createClub.dart';
 import 'package:growthclub/pages/createGoal.dart';
-import 'package:growthclub/pages/createGoal_one.dart';
-import 'package:growthclub/pages/createGoal_three.dart';
 import 'package:growthclub/pages/createTask.dart';
 import 'package:growthclub/pages/find_your_club.dart';
-import 'package:growthclub/pages/new_goal.dart';
 import 'package:growthclub/pages/loginIn.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/pages/onboarding.dart';
 import 'package:growthclub/pages/register.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 
-import 'pages/createGoal_two.dart';
 
 // global VARS
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+
   GoogleFonts.config.allowRuntimeFetching = true;
   runApp(MyApp());
 }
@@ -35,6 +39,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const SplashScreen(), //  HomePageWidget()
         theme: ThemeData(
+          useMaterial3: true,
                 dividerColor: const Color(0xFFBEBEBE),
                 iconTheme: const IconThemeData(
                   color: Colors.grey,
