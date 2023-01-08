@@ -52,7 +52,6 @@ class _MoreOptionsState extends State<MoreOptions> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   late final TextEditingController emailAddressC;
-
   @override
   void initState() {
     super.initState();
@@ -65,7 +64,7 @@ class _MoreOptionsState extends State<MoreOptions> {
       key: scaffoldKey,
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 32.0),
+        padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -170,104 +169,107 @@ class _NewClubPageState extends State<NewClubPage> {
     return BasePage(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Create a new club',
-                        style: GTheme.subtitle1.copyWith(
-                            fontSize: 26, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                buildTextFormField(
-                  controller: whatWillYouCallX,
-                  helperText: 'Keep it Short and easy to understand',
-                  hintText: 'What will you call your club?',
-                ),
-                buildTextFormField(
-                    controller: mainPurpose,
-                    helperText: 'What will the club be about?',
-                    hintText: 'What\'s the main purpose of the club?'),
-                buildTextFormField(
-                    controller: whatCategory,
-                    helperText: 'Can\'t find one? Add one',
-                    hintText: 'What category?',
-                    suffixIcon: const Icon(Icons.keyboard_arrow_down_sharp)),
-                const SizedBox(height: 50),
-                Text('Privacy',
-                    style: GTheme.bodyText1.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    )),
-                Column(
-                  children: <Widget>[
-                    RadioListTile<Modes>(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text('Private',
-                          style: GTheme.bodyText1.copyWith(
-                              fontWeight: FontWeight.w300, fontSize: 10)),
-                      value: Modes.private,
-                      groupValue: _character,
-                      onChanged: (Modes? value) {
-                        setState(() {
-                          _character = value;
-                        });
-                      },
-                    ),
-                    ulListItem('Only people you add can join'),
-                    ulListItem('Your club will not be visible to others'),
-                    RadioListTile<Modes>(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text('Public',
-                          style: GTheme.bodyText1.copyWith(
-                              fontWeight: FontWeight.w300, fontSize: 10)),
-                      value: Modes.public,
-                      groupValue: _character,
-                      onChanged: (Modes? value) {
-                        setState(() {
-                          _character = value;
-                        });
-                      },
-                    ),
-                    ulListItem('Only people you add can join'),
-                    ulListItem('Your club will not be visible to others'),
-                  ],
-                ),
-              ],
-            ),
-            GrowthronButton(
-                text: 'Next',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MoreOptions1()));
-                },
-                options: GrowthronButtonOptions(
-                  width: 300,
-                  height: 50,
-                  color: GTheme.primaryButtonColor,
-                  textStyle: GTheme.title3.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Create a new club',
+                          style: GTheme.subtitle1.copyWith(
+                              fontSize: 26, fontWeight: FontWeight.w600)),
+                    ],
                   ),
-                  elevation: 3,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
+                  const SizedBox(height: 20),
+                  buildTextFormField(
+                    controller: whatWillYouCallX,
+                    helperText: 'Keep it Short and easy to understand',
+                    hintText: 'What will you call your club?',
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                ))
-          ],
+                  buildTextFormField(
+                      controller: mainPurpose,
+                      helperText: 'What will the club be about?',
+                      hintText: 'What\'s the main purpose of the club?'),
+                  buildTextFormField(
+                      controller: whatCategory,
+                      helperText: 'Can\'t find one? Add one',
+                      hintText: 'What category?',
+                      suffixIcon: const Icon(Icons.keyboard_arrow_down_sharp)),
+                  const SizedBox(height: 50),
+                  Text('Privacy',
+                      style: GTheme.bodyText1.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      )),
+                  Column(
+                    children: <Widget>[
+                      RadioListTile<Modes>(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('Private',
+                            style: GTheme.bodyText1.copyWith(
+                                fontWeight: FontWeight.w300, fontSize: 14)),
+                        value: Modes.private,
+                        groupValue: _character,
+                        onChanged: (Modes? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                      ulListItem('Only people you add can join'),
+                      ulListItem('Your club will not be visible to others'),
+                      RadioListTile<Modes>(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('Public',
+                            style: GTheme.bodyText1.copyWith(
+                                fontWeight: FontWeight.w300, fontSize: 14)),
+                        value: Modes.public,
+                        groupValue: _character,
+                        onChanged: (Modes? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                      ulListItem('Only people you add can join'),
+                      ulListItem('Your club will not be visible to others'),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 50),
+              GrowthronButton(
+                  text: 'Next',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MoreOptions1()));
+                  },
+                  options: GrowthronButtonOptions(
+                    width: 300,
+                    height: 50,
+                    color: GTheme.primaryButtonColor,
+                    textStyle: GTheme.title3.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                    elevation: 3,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ))
+            ],
+          ),
         ),
       ),
     );

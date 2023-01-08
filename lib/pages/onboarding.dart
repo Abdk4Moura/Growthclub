@@ -1,21 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/TestRoutes/inapp.dart' show AppPage1;
+import 'package:growthclub/auth/auth.dart';
+import 'package:growthclub/pages/login.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/themes.dart';
+import 'package:growthclub/typography.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
-
-typedef VoidCallback = void Function();
-
-class NavigatorDirector extends StatelessWidget {
-  const NavigatorDirector({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -31,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(seconds: 3)).then((value) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => const MainScreenPage()));
+          MaterialPageRoute(builder: (ctx) => const ContextProvider()));
     });
   }
 
@@ -47,6 +42,137 @@ class _SplashScreenState extends State<SplashScreen> {
             Image(
                 image: AssetImage("assets/images/growthron_white_logo_gr.png"))
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ContextProvider extends StatelessWidget {
+  const ContextProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthModel>(builder: (context, authModel, _) {
+      final currentUser = authModel.instance.currentUser;
+      if (kDebugMode) {
+        print('currentUser: $currentUser');
+      }
+      if (currentUser == null) {
+        return const LoginPage();
+      }
+      if (currentUser.displayName == '') {
+        return const InfoPage();
+      }
+      return const MainScreenPage();
+    });
+  }
+}
+
+class InfoPage extends StatefulWidget {
+  const InfoPage({Key? key}) : super(key: key);
+
+  @override
+  State<InfoPage> createState() => _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage> {
+  late final nameController;
+
+  late final emailController;
+
+  late final phoneNumberController;
+
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneNumberController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthModel>(
+      builder: (context, authModel, _) => Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text('Additional Info',
+                          textAlign: TextAlign.center,
+                          style: GTheme.subtitle1.copyWith(
+                              fontWeight: FontWeight.w700, fontSize: 22)),
+                      Text('Please add additional info like your name',
+                          style: GTheme.subtitle2
+                              .copyWith(fontWeight: FontWeight.w400)),
+                    ],
+                  ),
+                  const SizedBox(height: 70),
+                  TextFormField(
+                    controller: nameController,
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      hintText: 'John Doe',
+                      hintStyle: OutfitTheme.bodyText2,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    style: OutfitTheme.bodyText1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  TextFormField(
+                    controller: phoneNumberController,
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      hintText: '08100023340',
+                      hintStyle: OutfitTheme.bodyText2,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    style: OutfitTheme.bodyText1,
+                    keyboardType: TextInputType.name,
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -79,9 +205,9 @@ class StarterPage1 extends StatelessWidget {
                   const SizedBox(height: 40),
                   Column(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 300,
-                        child: const Text('Welcome to Growth Clubs',
+                        child: Text('Welcome to Growth Clubs',
                             textAlign: TextAlign.center),
                       ),
                       Padding(
@@ -115,8 +241,7 @@ class StarterPage2 extends StatelessWidget {
   final String bigText;
   final VoidCallback? callback;
 
-  const StarterPage2(
-    this.callback, {
+  const StarterPage2(this.callback, {
     super.key,
     required this.imagePath,
     required this.bigText,
@@ -160,21 +285,21 @@ class StarterPage2 extends StatelessWidget {
                         ),
                         Container(
                             padding: const EdgeInsets.symmetric(
-                                    horizontal: 55, vertical: 20)
+                                horizontal: 55, vertical: 20)
                                 .copyWith(bottom: 0),
                             child: RichText(
                                 textAlign: TextAlign.center,
                                 text: const TextSpan(children: <TextSpan>[
                                   TextSpan(
                                       text:
-                                          'Make progress on your goals with a ',
+                                      'Make progress on your goals with a ',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20)),
                                   TextSpan(
                                       text: 'dedicated community',
                                       style: TextStyle(
                                           color:
-                                              Color.fromARGB(255, 0, 125, 178),
+                                          Color.fromARGB(255, 0, 125, 178),
                                           fontSize: 20))
                                 ]))),
                       ],
@@ -208,7 +333,7 @@ SizedBox GetStartedButton({VoidCallback? callBack}) {
         onPressed: callBack,
         child: Text('Get started',
             style:
-                GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w300)),
+            GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w300)),
       ));
 }
 
@@ -280,10 +405,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
       StarterPage1(onPressed),
       ...keyValue
           .map((element) => StarterPage2(
-                onPressed,
-                bigText: element[0],
-                imagePath: element[1],
-              ))
+        onPressed,
+        bigText: element[0],
+        imagePath: element[1],
+      ))
           .toList()
     ];
 

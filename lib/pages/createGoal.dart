@@ -29,7 +29,7 @@ class _NewGoalPageState extends State<NewGoalPage> {
       key: scaffoldKey,
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 32.0),
+        padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

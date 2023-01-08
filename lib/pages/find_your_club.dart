@@ -14,19 +14,16 @@ class FindYourClubPage extends StatelessWidget {
         body: Padding(
       padding: const EdgeInsets.fromLTRB(16, 8.0, 16, 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Text('Now let\'s add the secret\ningredient',
-                  textAlign: TextAlign.center,
-                  style: GTheme.subtitle1
-                      .copyWith(fontWeight: FontWeight.w700, fontSize: 22)),
-              Text('Find your club of superstars',
-                  style:
-                      GTheme.subtitle2.copyWith(fontWeight: FontWeight.w400)),
-            ],
-          ),
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text('Now let\'s add the secret\ningredient',
+                textAlign: TextAlign.center,
+                style: GTheme.subtitle1
+                    .copyWith(fontWeight: FontWeight.w700, fontSize: 22)),
+            Text('Find your club of superstars',
+                style: GTheme.subtitle2.copyWith(fontWeight: FontWeight.w400)),
+          ],
         ),
         const SizedBox(height: 70),
         Text('All(Public)',

@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/growthron_ui.dart';
 import 'package:growthclub/typography.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesItem extends StatelessWidget {
-  CategoriesItem(this.text, {
+  CategoriesItem(
+    this.text, {
     this.fontSize,
     this.borderRadius,
     this.padding,
@@ -91,9 +94,9 @@ Widget buildGrowthronSectionListTile(
         onPressed: () {},
         style: ButtonStyle(
             backgroundColor:
-            const MaterialStatePropertyAll(GTheme.primaryButtonColor),
+                const MaterialStatePropertyAll(GTheme.primaryButtonColor),
             shadowColor:
-            MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
+                MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
         child: Text(
           'join',
           style: GTheme.bodyText3.copyWith(
@@ -115,10 +118,11 @@ Widget buildGrowthronSectionListTile(
 }
 
 class GrowthronSubMenu extends StatelessWidget {
-  const GrowthronSubMenu({Key? key,
-    required this.headingText,
-    required this.list,
-    this.hasAddButtonBeside})
+  const GrowthronSubMenu(
+      {Key? key,
+      required this.headingText,
+      required this.list,
+      this.hasAddButtonBeside})
       : super(key: key);
 
   final String headingText;
@@ -169,6 +173,7 @@ class GrowthronSubHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     var _style = style ?? GTheme.title2;
     var iconGrey = Colors.grey;
+    final authModel = Provider.of<AuthModel>(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,15 +186,17 @@ class GrowthronSubHeading extends StatelessWidget {
         Container(
           child: hasAddButton
               ? Card(
-              color: Colors.white,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shape:
-              CircleBorder(side: BorderSide(width: 2, color: iconGrey)),
-              child: IconButton(
-                color: iconGrey,
-                icon: const Icon(FontAwesomeIcons.plus),
-                onPressed: () {},
-              ))
+                  color: Colors.white,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape:
+                      CircleBorder(side: BorderSide(width: 2, color: iconGrey)),
+                  child: IconButton(
+                    color: iconGrey,
+                    icon: const Icon(FontAwesomeIcons.plus),
+                    onPressed: () {
+                      authModel.instance.signOut();
+                    },
+                  ))
               : Container(),
         )
       ],
@@ -198,11 +205,12 @@ class GrowthronSubHeading extends StatelessWidget {
 }
 
 class IconOptions {
-  const IconOptions({this.size,
-    this.color,
-    this.semanticLabel,
-    this.textDirection,
-    this.shadows});
+  const IconOptions(
+      {this.size,
+      this.color,
+      this.semanticLabel,
+      this.textDirection,
+      this.shadows});
 
   final double? size;
   final Color? color;
@@ -212,12 +220,13 @@ class IconOptions {
 }
 
 class GrowthronCustomButton extends StatelessWidget {
-  const GrowthronCustomButton({Key? key,
-    required this.icon,
-    required this.text,
-    this.textStyle,
-    this.options,
-    required this.onPressed})
+  const GrowthronCustomButton(
+      {Key? key,
+      required this.icon,
+      required this.text,
+      this.textStyle,
+      this.options,
+      required this.onPressed})
       : super(key: key);
 
   final IconData icon;
@@ -257,7 +266,7 @@ Widget buildTextFormField(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextFormField(
       controller: controller,
-      autofocus: true,
+      autofocus: false,
       obscureText: false,
       decoration: InputDecoration(
         helperText: helperText,

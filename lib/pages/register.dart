@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/themes.dart';
 
-import '../../auth/auth.dart';
 import '../../growthron_ui.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -188,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithGoogle();
+                            final user = await _signInWithGoogle();
                             if (user == null) {
                               return;
                             }
@@ -224,7 +223,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithApple();
+                            final user = await _signInWithApple();
                             if (user == null) {
                               return;
                             }
@@ -260,7 +259,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithFacebook();
+                            final user = await _signInWithFacebook();
                             if (user == null) {
                               return;
                             }
@@ -357,6 +356,12 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  _signInWithFacebook() {}
+
+  _signInWithApple() {}
+
+  _signInWithGoogle() {}
 }
 
 TextFormField GrowthronFormField(BuildContext context,
