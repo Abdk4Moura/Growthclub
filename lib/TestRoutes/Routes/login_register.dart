@@ -189,7 +189,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithGoogle();
+                            final user = await _signInWithGoogle();
                             if (user == null) {
                               return;
                             }
@@ -225,7 +225,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithApple();
+                            final user = await _signInWithApple();
                             if (user == null) {
                               return;
                             }
@@ -261,7 +261,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithFacebook();
+                            final user = await _signInWithFacebook();
                             if (user == null) {
                               return;
                             }
@@ -338,7 +338,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         width: 300,
                         height: 50,
                         color: Colors.black,
-                        textStyle: OutfitTheme.subtitle1?.apply(
+                        textStyle: OutfitTheme.subtitle1.apply(
                           color: Colors.white,
                         ),
                         elevation: 3,
@@ -358,6 +358,12 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       ),
     );
   }
+
+  _signInWithFacebook() {}
+
+  _signInWithGoogle() {}
+
+  _signInWithApple() {}
 }
 
 TextFormField GrowthronFormField(BuildContext context,

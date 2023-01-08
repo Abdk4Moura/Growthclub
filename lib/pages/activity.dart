@@ -41,7 +41,6 @@ class _ActivityPageState extends State<ActivityPage> {
           category: 'show-your-work',
           comment:
               'Hey guys! I built a tool that automatically converts your speech in Yoruba into English text')
-
     ];
     return BasePage(
       key: scaffoldKey,
@@ -75,14 +74,13 @@ class _ActivityPageState extends State<ActivityPage> {
     );
   }
 
-  MCWWrapper buildMessageCardWidget({
-    required String user,
-    required String comment,
-    String? avatar,
-    String? imageLocation,
-    String? goal,
-    String? category
-  }) =>
+  MCWWrapper buildMessageCardWidget(
+          {required String user,
+          required String comment,
+          String? avatar,
+          String? imageLocation,
+          String? goal,
+          String? category}) =>
       MCWWrapper(MessageCardWidget(
         user: user,
         avatar: avatar,
@@ -118,7 +116,8 @@ class MessageCardWidget extends StatelessWidget {
     required this.comment,
     this.imageLocation,
     this.goal,
-    this.avatar, this.category,
+    this.avatar,
+    this.category,
   }) : super(key: key);
   final String? avatar;
   final String user;

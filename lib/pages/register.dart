@@ -189,7 +189,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithGoogle();
+                            final user = await _signInWithGoogle();
                             if (user == null) {
                               return;
                             }
@@ -225,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithApple();
+                            final user = await _signInWithApple();
                             if (user == null) {
                               return;
                             }
@@ -261,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         InkWell(
                           onTap: () async {
-                            final user = await signInWithFacebook();
+                            final user = await _signInWithFacebook();
                             if (user == null) {
                               return;
                             }
@@ -358,6 +358,12 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  _signInWithFacebook() {}
+
+  _signInWithApple() {}
+
+  _signInWithGoogle() {}
 }
 
 TextFormField GrowthronFormField(BuildContext context,

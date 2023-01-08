@@ -36,6 +36,7 @@ class GrowthronDropdown extends StatefulWidget {
       this.onChanged,
       key})
       : super(key: key);
+
   @override
   State<GrowthronDropdown> createState() => _GrowthronDropdownState();
 }
@@ -106,20 +107,49 @@ class GrowthronButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    double? width;
+    double? height;
+    final buttonTheme = Theme.of(context).buttonTheme;
+    bool shouldUseDefaultBorder = options?.borderRadius == null && options?.borderSide == null ||
+        buttonTheme.shape is! OutlinedBorder;
+
+    final button = ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll<Color?>(
+              options.color ?? buttonTheme.colorScheme?.background),
+          elevation: MaterialStatePropertyAll<double?>(options.elevation ?? 0),
+          shape: MaterialStateProperty.all(
+             !shouldUseDefaultBorder
+                  ? RoundedRectangleBorder(
+                      borderRadius: options.borderRadius ?? BorderRadius.zero,
+                      side: options.borderSide ?? BorderSide.none)
+                  : buttonTheme.shape as OutlinedBorder)
+      ),
+      onPressed: onPressed,
+      child: Center(
+          child: Text(text,
+              textAlign: TextAlign.center, style: options.textStyle)),
+    );
+
+    if (options?.width == null) {
+      width = null;
+    } else {
+      width = options.width!;
+    }
+    if (options?.height == null) {
+      height = null;
+    } else {
+      height = options.height!;
+    }
+    if (options?.width == null && options?.height == null) {
+      return button;
+    }
+    final sizedButton = SizedBox(
       width: options.width,
       height: options.height,
-      child: ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll<Color?>(options.color),
-            elevation: MaterialStatePropertyAll<double?>(options.elevation),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: options.borderRadius ?? BorderRadius.zero,
-                side: options.borderSide ?? BorderSide.none))),
-        onPressed: onPressed,
-        child: Center(child: Text(text, style: options.textStyle)),
-      ),
+      child: button,
     );
+    return sizedButton;
   }
 }
 

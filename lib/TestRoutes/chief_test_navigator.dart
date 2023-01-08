@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:growthclub/pages/chat.dart';
 import 'package:growthclub/pages/forgotPassword.dart';
-import 'package:growthclub/pages/loginIn.dart';
+import 'package:growthclub/pages/login.dart';
 import 'package:growthclub/pages/register.dart';
 import 'package:growthclub/pages/createTask.dart';
 import 'package:growthclub/pages/signInWithPhone.dart';

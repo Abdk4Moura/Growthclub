@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "python",
+            "name": "Run with chrome",
+            "file": "main.dart",
+        },
+        
+    ]
+}

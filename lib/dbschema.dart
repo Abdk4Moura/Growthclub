@@ -8,7 +8,7 @@ String checksum(String string) {
 }
 
 CollectionReference _users = FirebaseFirestore.instance.collection('users');
-CollectionReference _messages =
+CollectionReference? _messages;
 
 users(String id) =>
     FirebaseFirestore.instance.collection('users').doc(id).withConverter(
@@ -21,7 +21,10 @@ clubs(String id) =>
         toFirestore: (Club club, _) => club.toFirestore());
 
 chatRooms({required String clubId, required String roomId}) =>
-    FirebaseFirestore.instance.collection('clubs').doc(clubId).collection(roomId);
+    FirebaseFirestore.instance
+        .collection('clubs')
+        .doc(clubId)
+        .collection(roomId);
 
 class SetFunctionError extends Error {
   final String message;
@@ -73,7 +76,6 @@ class User extends DBObject {
   final String? phoneNumber;
   final String? password;
   final Timestamp? createdDate;
-  @override
   final String? id;
 
   // TODO: User to be remade a constant class
@@ -85,9 +87,9 @@ class User extends DBObject {
       this.password,
       this.createdDate,
       super.fromClient})
-      : assert(email != null && phoneNumber != null,
+      : assert(email != null || phoneNumber != null,
             'either `phoneNumber` or `email` must be existent'),
-        assert(password != null && email == null,
+        assert(password != null && email != null,
             '`password` cannot be null when email exists'),
         assert(name != null, 'Every user has a name; `name` cannot be empty'),
         assert(fromClient && id == null,
@@ -227,7 +229,8 @@ class Message extends SyncObject {
     };
   }
 
-  final CollectionReference<Object?> group = _messages;
+  // TODO: to be made unnullable and implemented properly
+  final CollectionReference<Object?> group = _messages as CollectionReference;
 
   @override
   Future<void> sync() {
@@ -238,20 +241,23 @@ class Message extends SyncObject {
 
 enum MessageStatus { sent, delivered, seen, loading }
 
-class Club extends DBObject {
+class Club extends SyncObject {
   @override
   final String? id;
   final String name;
-  final List<User> members;
+  // [members] identity stored as their uid
+  final List<String> members;
   final List<Task> tasks;
-  final Timestamp creationDate;
+  final Timestamp? creationDate;
 
   Club(
       {this.id,
       required this.name,
       required this.members,
       required this.tasks,
-      required this.creationDate});
+      this.creationDate,
+      super.fromClient})
+      : assert(id == null && creationDate == null);
 
   factory Club.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -277,9 +283,15 @@ class Club extends DBObject {
       if (id != null) "id": id,
     };
   }
+
+  @override
+  Future<void> sync() {
+    // TODO: implement sync
+    throw UnimplementedError();
+  }
 }
 
-class Task extends DBObject {
+class Task extends SyncObject {
   @override
   final String? id;
   final String? text;
@@ -313,5 +325,11 @@ class Task extends DBObject {
       "dueDate": dueDate,
       if (id != null) "id": id,
     };
+  }
+
+  @override
+  Future<void> sync() {
+    // TODO: implement sync
+    throw UnimplementedError();
   }
 }

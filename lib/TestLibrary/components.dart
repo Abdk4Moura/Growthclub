@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/growthron_ui.dart';
 import 'package:growthclub/typography.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesItem extends StatelessWidget {
   CategoriesItem(
@@ -171,6 +174,7 @@ class GrowthronSubHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     var _style = style ?? GTheme.title2;
     var iconGrey = Colors.grey;
+    final authModel = Provider.of<AuthModel>(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,7 +194,9 @@ class GrowthronSubHeading extends StatelessWidget {
                   child: IconButton(
                     color: iconGrey,
                     icon: const Icon(FontAwesomeIcons.plus),
-                    onPressed: () {},
+                    onPressed: () {
+                      authModel.instance.signOut();
+                    },
                   ))
               : Container(),
         )
@@ -261,7 +267,7 @@ Widget buildTextFormField(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextFormField(
       controller: controller,
-      autofocus: true,
+      autofocus: false,
       obscureText: false,
       decoration: InputDecoration(
         helperText: helperText,

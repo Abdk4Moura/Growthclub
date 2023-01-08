@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:growthclub/TestLibrary/components.dart';
+import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/components/after_auth_base.dart';
 import 'package:growthclub/pages/test_canvas.dart';
 import 'package:growthclub/typography.dart';
+import 'package:provider/provider.dart';
 
+import '../TestLibrary/test_objects.dart';
 import '../assets_names.dart';
 import '../growthron_ui.dart';
 
@@ -33,61 +36,66 @@ class _MainScreenPageState extends State<MainScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-        body: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                    child: ClipRRect(
+    final authModel = Provider.of<AuthModel>(context, listen: true);
+    return Consumer<AuthModel>(
+      builder: (context, authModel, _) => BasePage(
+          body: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
-                      child: Image.asset(
-                        testAppHeroImage,
-                        width: 40,
-                        height: 40,
-                        fit: BoxFit.cover,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: Image.asset(
+                          testAppHeroImage,
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                  child: Text('Hey, John', style: GTheme.title2),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                height: 45,
-                child: // Generated code for this ListView Widget...
-                    ListView.builder(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: items.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CategoriesItem('#${items[index]}');
-                  },
-                )),
-            const MainScreenTasksTrack(),
-            const TestContainer(),
-            GrowthronSubMenu(
-                hasAddButtonBeside: true,
-                headingText: 'Messages',
-                list: listTiles.map<Widget>(buildListTile).toList()),
-          ]),
-        ));
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    child: Text(
+                        'Hey ${authModel.instance.currentUser.displayName == null ? authModel.instance.currentUser.displayName == null : MainScreenObjects.username}',
+                        style: GTheme.title2),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Container(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  height: 45,
+                  child: // Generated code for this ListView Widget...
+                      ListView.builder(
+                    padding: EdgeInsets.zero,
+                    primary: false,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: items.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CategoriesItem('#${items[index]}');
+                    },
+                  )),
+              const MainScreenTasksTrack(),
+              const TestContainer(),
+              GrowthronSubMenu(
+                  hasAddButtonBeside: true,
+                  headingText: 'Messages',
+                  list: listTiles.map<Widget>(buildListTile).toList()),
+            ]),
+          )),
+    );
   }
 }
 
@@ -220,6 +228,7 @@ class MainScreenCheckListTile extends StatefulWidget {
   const MainScreenCheckListTile(this.text, {Key? key}) : super(key: key);
 
   final String text;
+
   @override
   State<MainScreenCheckListTile> createState() =>
       _MainScreenCheckListTileState();
@@ -240,7 +249,8 @@ class _MainScreenCheckListTileState extends State<MainScreenCheckListTile> {
       },
       title: AutoSizeText(widget.text,
           overflow: TextOverflow.clip, style: GTheme.bodyText2),
-      activeColor: Colors.black, //Color(0x7300561D),
+      activeColor: Colors.black,
+      //Color(0x7300561D),
       checkColor: GTheme.secondaryColor,
       tileColor: Colors.transparent,
       controlAffinity: ListTileControlAffinity.leading,

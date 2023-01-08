@@ -1,21 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/TestRoutes/inapp.dart' show AppPage1;
+import 'package:growthclub/auth/auth.dart';
+import 'package:growthclub/pages/login.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/themes.dart';
+import 'package:growthclub/typography.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
-
-typedef VoidCallback = void Function();
-
-class NavigatorDirector extends StatelessWidget {
-  const NavigatorDirector({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,9 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => const MainScreenPage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (ctx) => const ContextProvider()));
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +39,145 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Image(image: AssetImage("assets/images/growthron_white_logo_gr.png"))
+            Image(
+                image: AssetImage("assets/images/growthron_white_logo_gr.png"))
           ],
         ),
       ),
     );
   }
 }
+
+class ContextProvider extends StatelessWidget {
+  const ContextProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthModel>(builder: (context, authModel, _) {
+      final currentUser = authModel.instance.currentUser;
+      if (kDebugMode) {
+        print('currentUser: $currentUser');
+      }
+      if (currentUser == null) {
+        return const LoginPage();
+      }
+      if (currentUser.displayName == '') {
+        return const InfoPage();
+      }
+      return const MainScreenPage();
+    });
+  }
+}
+
+class InfoPage extends StatefulWidget {
+  const InfoPage({Key? key}) : super(key: key);
+
+  @override
+  State<InfoPage> createState() => _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage> {
+  late final nameController;
+
+  late final emailController;
+
+  late final phoneNumberController;
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneNumberController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthModel>(
+      builder: (context, authModel, _) => Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text('Additional Info',
+                          textAlign: TextAlign.center,
+                          style: GTheme.subtitle1
+                              .copyWith(fontWeight: FontWeight.w700, fontSize: 22)),
+                      Text('Please add additional info like your name',
+                          style:
+                          GTheme.subtitle2.copyWith(fontWeight: FontWeight.w400)),
+                    ],
+                  ),
+                  const SizedBox(height: 70),
+                  TextFormField(
+                    controller: nameController,
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      hintText: 'John Doe',
+                      hintStyle: OutfitTheme.bodyText2,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    style: OutfitTheme.bodyText1,
+                    keyboardType: TextInputType.name,
+                  ),
+                  TextFormField(
+                    controller: phoneNumberController,
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      hintText: '08100023340',
+                      hintStyle: OutfitTheme.bodyText2,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    style: OutfitTheme.bodyText1,
+                    keyboardType: TextInputType.name,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 class StarterPage1 extends StatelessWidget {
   final VoidCallback? callback;
@@ -76,9 +205,9 @@ class StarterPage1 extends StatelessWidget {
                   const SizedBox(height: 40),
                   Column(
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 300,
-                        child: const Text('Welcome to Growth Clubs',
+                        child: Text('Welcome to Growth Clubs',
                             textAlign: TextAlign.center),
                       ),
                       Padding(
