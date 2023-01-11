@@ -6,6 +6,7 @@ import 'package:growthclub/TestRoutes/inapp.dart' show AppPage1;
 import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/pages/login.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/pages/sprints/chatsprint.dart';
 import 'package:growthclub/themes.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
@@ -58,13 +59,14 @@ class ContextProvider extends StatelessWidget {
       if (kDebugMode) {
         print('currentUser: $currentUser');
       }
-      if (currentUser == null) {
-        return const LoginPage();
-      }
-      if (currentUser.displayName == '') {
-        return const InfoPage();
-      }
-      return const MainScreenPage();
+      // if (currentUser == null) {
+      //   return const LoginPage();
+      // }
+      // if (currentUser.displayName == '') {
+      //   return const InfoPage();
+      // }
+      // return const MainScreenPage();
+      return const ChatAndClubs();
     });
   }
 }
@@ -108,11 +110,11 @@ class _InfoPageState extends State<InfoPage> {
                     children: [
                       Text('Additional Info',
                           textAlign: TextAlign.center,
-                          style: GTheme.subtitle1
-                              .copyWith(fontWeight: FontWeight.w700, fontSize: 22)),
+                          style: GTheme.subtitle1.copyWith(
+                              fontWeight: FontWeight.w700, fontSize: 22)),
                       Text('Please add additional info like your name',
-                          style:
-                          GTheme.subtitle2.copyWith(fontWeight: FontWeight.w400)),
+                          style: GTheme.subtitle2
+                              .copyWith(fontWeight: FontWeight.w400)),
                     ],
                   ),
                   const SizedBox(height: 70),
@@ -177,7 +179,6 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 }
-
 
 class StarterPage1 extends StatelessWidget {
   final VoidCallback? callback;

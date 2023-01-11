@@ -23,18 +23,16 @@ class AuthModel extends ChangeNotifier {
     late final OAuthCredential credential;
 
     // try {
-      credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
+    credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
     // } on Error {
     //   return;
     // }
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
-
-    FirebaseAuth.instance.currentUser.
 
     // Notify Listeners of the change
     notifyListeners();

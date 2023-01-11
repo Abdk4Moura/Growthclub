@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growthclub/auth/auth.dart';
@@ -83,26 +82,44 @@ Divider buildDivider() {
 }
 
 Widget buildGrowthronSectionListTile(
-    {required String title, required int membersCount, required leadingImage}) {
+    {required String title,
+    required int membersCount,
+    required leadingImage,
+    isNew: false}) {
   return ListTile(
-    contentPadding: const EdgeInsets.all(0),
+    contentPadding: EdgeInsets.zero,
     title: Text(title, style: GTheme.bodyText3),
     subtitle: Text('$membersCount members',
         style: GTheme.bodyText2.copyWith(
           fontWeight: FontWeight.w100,
         )),
-    trailing: ElevatedButton(
-        onPressed: () {},
-        style: ButtonStyle(
-            backgroundColor:
-                const MaterialStatePropertyAll(GTheme.primaryButtonColor),
-            shadowColor:
-                MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
-        child: Text('join', style: GTheme.bodyText3.copyWith(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: Colors.white
-        ),)),
+    trailing: SizedBox(
+      width: 80,
+      child: Row(
+        children: [
+          ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                  backgroundColor:
+                      const MaterialStatePropertyAll(GTheme.primaryButtonColor),
+                  shadowColor:
+                      MaterialStatePropertyAll(Colors.black.withOpacity(.12))),
+              child: Text(
+                'join',
+                style: GTheme.bodyText3.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              )),
+          if (isNew)
+            Container(
+              width: 0.05,
+              height: 0.05,
+              color: GTheme.TextButtonOriginalColor,
+            )
+        ],
+      ),
+    ),
     leading: Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
@@ -260,9 +277,9 @@ class GrowthronCustomButton extends StatelessWidget {
 
 Widget buildTextFormField(
     {TextEditingController? controller,
-      String? helperText,
-      String? hintText,
-      Icon? suffixIcon}) {
+    String? helperText,
+    String? hintText,
+    Icon? suffixIcon}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextFormField(
@@ -297,29 +314,29 @@ Widget buildTextFormField(
   );
 }
 
-  SizedBox closeIconButton(BuildContext context) {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: GrowthronIconButton(
-          borderRadius: 5,
-          buttonSize: 15,
-          color: GTheme.canvasColor,
-          icon: const Icon(
-            Icons.close,
-            color: Colors.black,
-          ),
-          onPressed: () async {
-            Navigator.pop(context);
-          },
+SizedBox closeIconButton(BuildContext context) {
+  return SizedBox(
+    width: 40,
+    height: 40,
+    child: FittedBox(
+      fit: BoxFit.scaleDown,
+      child: GrowthronIconButton(
+        borderRadius: 5,
+        buttonSize: 15,
+        color: GTheme.canvasColor,
+        icon: const Icon(
+          Icons.close,
+          color: Colors.black,
         ),
+        onPressed: () async {
+          Navigator.pop(context);
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 
- class _MainScreenCheckListTileState extends State<MainScreenCheckListTile> {
+class _MainScreenCheckListTileState extends State<MainScreenCheckListTile> {
   bool isChecked = false;
 
   @override
@@ -351,19 +368,17 @@ Widget buildTextFormField(
   }
 }
 
-void _f(bool value) {
-}
+void _f(bool value) {}
 
 class MainScreenCheckListTile extends StatefulWidget {
-  const MainScreenCheckListTile(
-    this.text, {
-    Key? key,
-    this.textStyle,
-        this.color,
-        this.checkColor,
-        this.tileColor,
-        this.checkViewCallback = _f
-  }) : super(key: key);
+  const MainScreenCheckListTile(this.text,
+      {Key? key,
+      this.textStyle,
+      this.color,
+      this.checkColor,
+      this.tileColor,
+      this.checkViewCallback = _f})
+      : super(key: key);
 
   final String text;
   final TextStyle? textStyle;

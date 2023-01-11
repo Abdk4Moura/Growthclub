@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.growthclub">
+    package="com.growthron.growthclub">
    <application
         android:label="growthclub"
         android:name="${applicationName}"

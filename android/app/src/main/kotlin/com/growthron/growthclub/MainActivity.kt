@@ -1,4 +1,4 @@
-package com.example.growthclub
+package com.growthron.growthclub
 
 import io.flutter.embedding.android.FlutterActivity
 
