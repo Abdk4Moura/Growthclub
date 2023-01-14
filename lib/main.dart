@@ -1,24 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:growthclub/TestRoutes/first_test.dart';
-import 'package:growthclub/TestRoutes/Routes/starter.dart';
-import 'package:growthclub/TestRoutes/Routes/login_register.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/firebase_options.dart';
-import 'package:growthclub/pages/activity.dart';
-import 'package:growthclub/pages/createClub.dart';
-import 'package:growthclub/pages/createGoal.dart';
-import 'package:growthclub/pages/createTask.dart';
-import 'package:growthclub/pages/find_your_club.dart';
-import 'package:growthclub/pages/login.dart';
-import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/pages/onboarding.dart';
-import 'package:growthclub/pages/register.dart';
-import 'package:growthclub/pages/test_canvas.dart';
 import 'package:provider/provider.dart';
 
 // global VARS

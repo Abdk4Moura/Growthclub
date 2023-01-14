@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:growthclub/auth/phoneSignIn.dart';
-
-import '../auth/emailAnd.dart';
+import '../auth/email_and.dart';
 import '../growthron_ui.dart';
 
 class SignInWithPhonePage extends StatefulWidget {
