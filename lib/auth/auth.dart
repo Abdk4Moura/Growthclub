@@ -1,7 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:growthclub/dbschema.dart' as db;
+import 'package:firebase_auth/firebase_auth.dart'
+    show
+        FirebaseAuth,
+        FirebaseAuthException,
+        GoogleAuthProvider,
+        OAuthCredential,
+        UserCredential;
+import 'package:flutter/foundation.dart' show ChangeNotifier;
+import 'package:google_sign_in/google_sign_in.dart'
+    show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
+import 'package:growthclub/models/user.dart' as db;
 
 class AuthModel extends ChangeNotifier {
   bool get isSignedIn => instance.currentUser != null;
