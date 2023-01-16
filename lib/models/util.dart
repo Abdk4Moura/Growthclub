@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:growthclub/models/user.dart';
+
+import 'club.dart';
+import 'user.dart';
 
 CollectionReference USERS = FirebaseFirestore.instance.collection('users');
 CollectionReference? MESSAGES;
+
+// complaints(String id) =>
+// FirebaseFirestore.instance.collection('complaints').doc(id).withConverter(fromFirestore: fromFirestore, toFirestore: toFirestore)
 
 users(String id) =>
     FirebaseFirestore.instance.collection('users').doc(id).withConverter(
@@ -15,7 +20,4 @@ clubs(String id) =>
         toFirestore: (Club club, _) => club.toFirestore());
 
 chatRooms({required String clubId, required String roomId}) =>
-    FirebaseFirestore.instance
-        .collection('clubs')
-        .doc(clubId)
-        .collection(roomId);
+    clubs(clubId).collection(roomId);

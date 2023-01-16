@@ -6,6 +6,7 @@ import 'package:growthclub/pages/activity.dart';
 import 'package:growthclub/pages/createClub.dart';
 import 'package:growthclub/pages/createGoal.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/screens/settings.dart';
 import 'package:growthclub/themes.dart';
 import 'package:growthclub/typography.dart';
 
@@ -204,8 +205,6 @@ class DialogTemplate extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.zero,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   children: [
@@ -225,7 +224,8 @@ class DialogTemplate extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           for (final widget in content) widget,
-                          for (final widget in dialogContent!) widget,
+                          if (dialogContent != null)
+                            for (final widget in dialogContent!) widget,
                           const SizedBox(height: 50),
                         ],
                       ),
@@ -252,10 +252,14 @@ Widget bottomNavBar(BuildContext context) => Container(
           IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => dialogTemplate(),
-              );
+              // showDialog<String>(
+              //   context: context,
+              //   builder: (BuildContext context) => dialogTemplate(),
+              // );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsScreen()));
             },
             color: Colors.black.withOpacity(0.8),
           ),
@@ -298,13 +302,19 @@ Widget bottomNavBar(BuildContext context) => Container(
       ),
     );
 
-DialogTemplate dialogTemplate() {
+DialogTemplate leaveTheClub(BuildContext context) {
   return DialogTemplate(
     heading: 'Leave the club',
     prompt: 'Are you sure you want to be removed from\nthe club?',
     altButtonText: 'Leave & report',
     altOtherButtonText: 'Leave',
-    buttonOnPressed: () {},
+    buttonOnPressed: () {
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) =>
+              haveBeenRemoved(controller: TextEditingController()));
+    },
     otherButtonOnPressed: () {},
   );
 }
@@ -330,7 +340,10 @@ DialogTemplate haveBeenRemoved({TextEditingController? controller}) {
                 fontSize: 12,
                 color: GTheme.primaryButtonColor,
                 decoration: TextDecoration.underline))),
-        onPressed: () {},
+        onPressed: () {
+          final text = controller!.text;
+          // TODO: add a complaint --
+        },
         child: const Text(
           'Submit',
         ),

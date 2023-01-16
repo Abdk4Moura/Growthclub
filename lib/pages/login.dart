@@ -8,8 +8,8 @@ import 'package:growthclub/themes.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
 
-import '../../growthron_ui.dart';
 import '../../auth/auth.dart';
+import '../../growthron_ui.dart';
 
 // added some useless comments
 
@@ -325,20 +325,21 @@ class _LoginPageState extends State<LoginPage> {
                         child: GrowthronButton(
                           onPressed: () async {
                             final email = emailController.text;
-                            final password = passwordController.text;
+                final password = passwordController.text;
 
-                            await authModel.signInWithEmailAndPassword(email: email, password: password);
+                print('reached here');
+                await authModel.signInWithEmailAndPassword(
+                    email: email, password: password);
 
-                            if (!authModel.isSignedIn) {
-                              return;
-                            }
+                if (!authModel.isSignedIn) {
+                  return;
+                }
 
-                            if (kDebugMode) {
-                              print("Logged In");
-                            }
+                if (kDebugMode) {
+                  print("Logged In");
+                }
 
-
-                            // createUser(emailAddress: email, password: password);
+                // createUser(emailAddress: email, password: password);
 
                             await Navigator.pushAndRemoveUntil(
                               context,

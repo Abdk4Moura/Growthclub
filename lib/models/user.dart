@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart'
         SnapshotOptions,
         Timestamp;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
+import 'package:growthclub/assets_names.dart';
 import 'package:growthclub/models/base_model.dart';
 import 'package:growthclub/models/util.dart';
 
@@ -13,30 +14,36 @@ CollectionReference _users = FirebaseFirestore.instance.collection('users');
 
 // TODO: add @Immutable label
 class User extends DBObject {
-  final String? name;
-  final String? email;
-  final String? phoneNumber;
-  final String? password;
-  final Timestamp? createdDate;
+  String? _name;
+  String? _email;
+  String? _phoneNumber;
+  late final Timestamp? createdDate;
   @override
-  final String? id;
+  String? id;
+  String? _imageUrl;
 
   // TODO: User to be remade a constant class
   User(
-      {this.name,
-      this.email,
-      this.phoneNumber,
-      this.id,
-      this.password,
-      this.createdDate,
-      super.fromClient})
+      {String? name,
+      String? email,
+      String? phoneNumber,
+      Timestamp? createdDate,
+      String? id,
+      String imageUrl = defaultIconImage})
       : assert(email != null || phoneNumber != null,
-            'either `phoneNumber` or `email` must be existent'),
-        assert(password != null && email != null,
-            '`password` cannot be null when email exists'),
-        assert(name != null, 'Every user has a name; `name` cannot be empty'),
-        assert(fromClient && id == null,
-            'Id cannot be null when it is collected from the server');
+            'either `phoneNumber` or `email` must be existent')
+  // TODO: if user does not have a name, prompt --> completed in the InfoPage.
+  {
+    this.name = name;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.imageUrl = imageUrl;
+
+    this.createdDate = createdDate ?? Timestamp.now();
+
+    if (id != null) this.id = id;
+    log();
+  }
 
   factory User.fromUID(String id) {
     User user = users(id).doc(id).get().data();
@@ -44,6 +51,73 @@ class User extends DBObject {
   }
 
   static get currentUser => User.currentUser_();
+
+  bool nameHasChanged = false;
+
+  String? get name => _name;
+
+  set name(String? newName) {
+    _name = newName;
+    nameHasChanged = true;
+  }
+
+  bool emailHasChanged = false;
+
+  String? get email => _email;
+
+  set email(String? newEmail) {
+    _email = newEmail;
+    emailHasChanged = true;
+  }
+
+  String? get phoneNumber => _phoneNumber;
+
+  bool phoneNumberHasChanged = false;
+
+  set phoneNumber(String? newPhoneNumber) {
+    _phoneNumber = newPhoneNumber;
+    phoneNumberHasChanged = true;
+  }
+
+  bool imageUrlHasChanged = false;
+
+  String? get imageUrl => _imageUrl;
+
+  set imageUrl(String? newImageUrl) {
+    _imageUrl = newImageUrl;
+    imageUrlHasChanged = true;
+  }
+
+  @override
+  Future<void> log(
+      {bool isUpdating = false,
+      fa.PhoneAuthCredential? phoneAuthCredential,
+      String? password}) async {
+    if (isUpdating && id == null)
+      throw SemanticUpdateContradictionError(toString());
+    super.log(isUpdating: isUpdating);
+
+    var user = fa.FirebaseAuth.instance.currentUser;
+    if (user == null) throw Error();
+    // if (user.uid == id) throw Error();
+    if (nameHasChanged) {
+      user.updateDisplayName(name);
+      nameHasChanged != nameHasChanged;
+    }
+    if (emailHasChanged) {
+      user.updateEmail(email!);
+      emailHasChanged != emailHasChanged;
+    }
+    if (phoneNumberHasChanged && phoneAuthCredential != null) {
+      user.updatePhoneNumber(phoneAuthCredential);
+      phoneNumberHasChanged != phoneNumberHasChanged;
+    }
+    if (imageUrlHasChanged) {
+      user.updatePhotoURL(imageUrl);
+      imageUrlHasChanged != imageUrlHasChanged;
+    }
+    if (password != null) user.updatePassword(password);
+  }
 
   bool get isAnonymous {
     return name == null || name == '';
@@ -86,14 +160,14 @@ class User extends DBObject {
   }
 
   @override
-  String get generatedId {
+  String get _generatedId {
     String parseInput = name as String;
     if (email != null) {
       parseInput += email as String;
     }
-    if (password != null) {
-      parseInput += password as String;
-    }
+    // if (password != null) {
+    //   parseInput += password as String;
+    // }
     if (createdDate != null) {
       parseInput += Timestamp.now().seconds.toString();
     }
@@ -101,8 +175,12 @@ class User extends DBObject {
   }
 
   @override
-  final CollectionReference<Object?> group = _users;
+  final CollectionReference<Object?> _group = _users;
 
   @override
-  final bool withRandomId = true;
+  bool get _withRandomId => true;
+
+  static void validateName(String name) {}
+
+  static void validatePhone(String phoneNumber) {}
 }

@@ -67,8 +67,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
-                        'Hey ${authModel.instance.currentUser.displayName == null ? authModel.instance.currentUser.displayName == null : MainScreenObjects.username}',
-                        style: GTheme.title2),
+                        'Hey ${authModel.username ?? MainScreenObjects.username}',
+                    style: GTheme.title2),
                   ),
                 ],
               ),

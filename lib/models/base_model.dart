@@ -15,51 +15,59 @@ class SetFunctionError extends Error {
   String toString() => "Should not/Cannot implement setter for $message";
 }
 
-abstract class Logger {
-  const Logger(
-      {this.id, this.fromClient = true, this.group, this.withRandomId = true});
+class SemanticUpdateContradictionError extends Error {
+  final String message;
 
-  final String? id;
-  final bool fromClient;
+  SemanticUpdateContradictionError(this.message);
+
+  @override
+  String toString() => "Attempt to update a non-existent record: $message";
+}
+
+abstract class Logger {
+  Logger();
+
+  String? id;
 
   Map<String, dynamic>? toFirestore();
 
-  final CollectionReference? group;
-  final bool withRandomId;
+  CollectionReference? _group;
 
-  String? get generatedId;
+  bool get _withRandomId;
 
-  log([bool update = false]) {
-    if (fromClient) {
-      return;
-    }
+  String? get _generatedId;
+
+  void log({bool isUpdating = false}) {
     var toF = toFirestore();
-    if (!update) {
-      if (!withRandomId) {
-        String id_ = generatedId as String;
-        group!.doc(id_).set(toF);
+    if (isUpdating) {
+      assert(id != null);
+      assert(toF != null);
+      _group?.doc(id).update(toF!);
+    } else {
+      if (!_withRandomId) {
+        String id_ =
+            _generatedId!; /* generatedId has a side effect,
+        it updates `id` itself */
+        _group!.doc(id_).set(toF);
       } else {
-        group!.add(toF);
+        _group!.add(toF).then((value) {
+          id = value.id;
+        });
       }
-      return;
     }
-
-    group?.doc(id).update(toF as Map<String, dynamic>);
   }
 }
 
 abstract class DBObject extends Logger {
-  const DBObject(
-      {super.id, this.fromClient = false, super.group, super.withRandomId});
+  DBObject();
 
-  @override
-  final bool fromClient;
+  bool get fromClient => id == null;
 }
 
 abstract class SyncObject extends DBObject {
-  SyncObject({super.id, super.fromClient, super.group, super.withRandomId});
+  SyncObject();
 
-  late Iterable<CollectionReference> syncContext;
+  late final Iterable<CollectionReference> syncContext;
 
   Future<void> sync();
 }

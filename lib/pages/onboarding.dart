@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/TestRoutes/inapp.dart' show AppPage1;
 import 'package:growthclub/auth/auth.dart';
+import 'package:growthclub/growthron_ui.dart';
+import 'package:growthclub/models/user.dart';
 import 'package:growthclub/pages/login.dart';
 import 'package:growthclub/pages/mainScreen.dart';
-import 'package:growthclub/pages/sprints/chatsprint.dart';
 import 'package:growthclub/themes.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
@@ -59,14 +60,14 @@ class ContextProvider extends StatelessWidget {
       if (kDebugMode) {
         print('currentUser: $currentUser');
       }
-      // if (currentUser == null) {
-      //   return const LoginPage();
-      // }
-      // if (currentUser.displayName == '') {
-      //   return const InfoPage();
-      // }
-      // return const MainScreenPage();
-      return const ChatAndClubs();
+      if (currentUser == null) {
+        return const LoginPage();
+      }
+      if (currentUser.displayName == '') {
+        return const InfoPage();
+      }
+      return const MainScreenPage();
+      // return const ChatAndClubs();
     });
   }
 }
@@ -144,6 +145,7 @@ class _InfoPageState extends State<InfoPage> {
                     style: OutfitTheme.bodyText1,
                     keyboardType: TextInputType.name,
                   ),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: phoneNumberController,
                     autofocus: true,
@@ -169,6 +171,46 @@ class _InfoPageState extends State<InfoPage> {
                     ),
                     style: OutfitTheme.bodyText1,
                     keyboardType: TextInputType.name,
+                  ),
+                  const SizedBox(height: 20),
+                  GrowthronButton(
+                    onPressed: () async {
+                      String name = nameController.text;
+                      String phoneNumber = phoneNumberController.text;
+
+                      User.validateName(name);
+                      User.validatePhone(phoneNumber);
+
+                      final user = authModel.user;
+
+                      user.name = name;
+                      user.phoneNumber = phoneNumber;
+
+                      await user.log(isUpdating: true);
+
+                      await Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainScreenPage(),
+                        ),
+                        (r) => false,
+                      );
+                    },
+                    text: 'Voila!',
+                    options: GrowthronButtonOptions(
+                      width: 300,
+                      height: 50,
+                      color: Colors.black,
+                      textStyle: OutfitTheme.subtitle1.apply(
+                        color: Colors.white,
+                      ),
+                      elevation: 3,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   )
                 ],
               ),
@@ -178,10 +220,17 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('nameController', nameController));
+    properties.add(DiagnosticsProperty('nameController', nameController));
+  }
 }
 
 class StarterPage1 extends StatelessWidget {
-  final VoidCallback? callback;
+  final VoidVoidCallback? callback;
 
   StarterPage1(this.callback, {super.key});
 
@@ -228,7 +277,7 @@ class StarterPage1 extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                  GetStartedButton(callBack: callback)
+                  GetStartedButton(callback: callback)
                 ],
               )),
         )
@@ -240,7 +289,7 @@ class StarterPage1 extends StatelessWidget {
 class StarterPage2 extends StatelessWidget {
   final String imagePath;
   final String bigText;
-  final VoidCallback? callback;
+  final VoidVoidCallback? callback;
 
   const StarterPage2(
     this.callback, {
@@ -306,7 +355,7 @@ class StarterPage2 extends StatelessWidget {
                                 ]))),
                       ],
                     ),
-                    GetStartedButton(callBack: callback),
+                    GetStartedButton(callback: callback),
                   ],
                 ),
               ),
@@ -318,7 +367,7 @@ class StarterPage2 extends StatelessWidget {
   }
 }
 
-SizedBox GetStartedButton({VoidCallback? callBack}) {
+SizedBox GetStartedButton({VoidVoidCallback? callback}) {
   return SizedBox(
       width: 350,
       height: 75,
@@ -332,7 +381,7 @@ SizedBox GetStartedButton({VoidCallback? callBack}) {
             ),
           ),
         ),
-        onPressed: callBack,
+        onPressed: callback,
         child: Text('Get started',
             style:
                 GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w300)),

@@ -12,6 +12,7 @@ const String coursesImage = '$iA/courses.png';
 const String booksImage = '$iA/books.png';
 const String jobsImage = '$iA/jobs.png';
 const String jsImage = '$iA/js.png';
+const String defaultIconImage = '$iA/user.png';
 
 const List<List<String>> listTiles = [
   [

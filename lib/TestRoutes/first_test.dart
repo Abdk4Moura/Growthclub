@@ -328,8 +328,8 @@ ElevatedButton RButton1 = Rbutton(const Text('Save'));
 ElevatedButton Rbutton(Widget child, {Color color: Colors.blue}) {
   return ElevatedButton(
     onPressed: () {},
+    style: ElevatedButton.styleFrom(backgroundColor: color),
     child: child,
-    style: ElevatedButton.styleFrom(primary: color),
   );
 }
 

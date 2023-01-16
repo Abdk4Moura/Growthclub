@@ -17,6 +17,13 @@ class AuthModel extends ChangeNotifier {
 
   db.User get user => db.User.fromFaUser(instance.currentUser);
 
+  String? get firstname => instance.currentUser?.displayName?.split(' ').first;
+
+  String? get username {
+    return firstname;
+    throw UnimplementedError();
+  }
+
 // TODO: make signInWithFacebook work actually
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -64,4 +71,12 @@ class AuthModel extends ChangeNotifier {
     }
     return null;
   }
+
+// Future updateUserDetails({String? name, String? phoneNumber, String? email, String? password, String? photoURL}) async {
+//   final user_ = FirebaseAuth.instance.currentUser.updateDisplayName(displayName)
+//   if (name != null) {
+//     await instance.currentUser.updateDisplayName(name);
+//     user.name = name;
+//   }
+// }
 }

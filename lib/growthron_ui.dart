@@ -110,8 +110,9 @@ class GrowthronButton extends StatelessWidget {
     double? width;
     double? height;
     final buttonTheme = Theme.of(context).buttonTheme;
-    bool shouldUseDefaultBorder = options?.borderRadius == null && options?.borderSide == null ||
-        buttonTheme.shape is! OutlinedBorder;
+    bool shouldUseDefaultBorder =
+        options.borderRadius == null && options.borderSide == null ||
+            buttonTheme.shape is! OutlinedBorder;
 
     final button = ElevatedButton(
       style: ButtonStyle(
@@ -131,17 +132,17 @@ class GrowthronButton extends StatelessWidget {
               textAlign: TextAlign.center, style: options.textStyle)),
     );
 
-    if (options?.width == null) {
+    if (options.width == null) {
       width = null;
     } else {
       width = options.width!;
     }
-    if (options?.height == null) {
+    if (options.height == null) {
       height = null;
     } else {
       height = options.height!;
     }
-    if (options?.width == null && options?.height == null) {
+    if (options.width == null && options.height == null) {
       return button;
     }
     final sizedButton = SizedBox(

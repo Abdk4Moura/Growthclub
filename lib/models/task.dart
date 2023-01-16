@@ -42,4 +42,8 @@ class Task extends SyncObject {
     // TODO: implement sync
     throw UnimplementedError();
   }
+
+  @override
+  // TODO: implement generatedId
+  String? get _generatedId => throw UnimplementedError();
 }

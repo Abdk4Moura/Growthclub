@@ -85,7 +85,7 @@ Widget buildGrowthronSectionListTile(
     {required String title,
     required int membersCount,
     required leadingImage,
-    isNew: false}) {
+    isNew = false}) {
   return ListTile(
     contentPadding: EdgeInsets.zero,
     title: Text(title, style: GTheme.bodyText3),

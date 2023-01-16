@@ -12,14 +12,13 @@ class Club extends SyncObject {
   final List<Task> tasks;
   final Timestamp? creationDate;
 
-  Club(
-      {this.id,
-      required this.name,
-      required this.members,
-      required this.tasks,
-      this.creationDate,
-      super.fromClient})
-      : assert(id == null && creationDate == null);
+  Club({
+    this.id,
+    required this.name,
+    required this.members,
+    required this.tasks,
+    this.creationDate,
+  }) : assert(id == null && creationDate == null);
 
   factory Club.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -51,4 +50,12 @@ class Club extends SyncObject {
     // TODO: implement sync
     throw UnimplementedError();
   }
+
+  @override
+  // TODO: implement generatedId
+  String? get _generatedId => throw UnimplementedError();
 }
+
+/* TESTS */
+
+var clubs = [];
