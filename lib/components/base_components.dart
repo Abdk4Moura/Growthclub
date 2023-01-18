@@ -169,7 +169,7 @@ class DialogTemplate extends StatelessWidget {
         button1 = button!;
       }
 
-      if (otherButton == null || altOtherButtonText == null) {
+      if (otherButton == null && altOtherButtonText == null) {
         content.add(button1);
       } else {
         if (altOtherButtonText != null) {
@@ -202,9 +202,11 @@ class DialogTemplate extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: SizedBox(
         width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.30,
         child: Padding(
             padding: EdgeInsets.zero,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   children: [
@@ -217,7 +219,7 @@ class DialogTemplate extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       decoration:
-                          const BoxDecoration(shape: BoxShape.rectangle),
+                      const BoxDecoration(shape: BoxShape.rectangle),
                       width: 300,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -226,7 +228,6 @@ class DialogTemplate extends StatelessWidget {
                           for (final widget in content) widget,
                           if (dialogContent != null)
                             for (final widget in dialogContent!) widget,
-                          const SizedBox(height: 50),
                         ],
                       ),
                     ),
@@ -277,7 +278,7 @@ Widget bottomNavBar(BuildContext context) => Container(
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MainScreenPage()));
+                        builder: (context) => const ActivityPage()));
               },
               color: Colors.black.withOpacity(0.8)),
           IconButton(
@@ -295,7 +296,7 @@ Widget bottomNavBar(BuildContext context) => Container(
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ActivityPage()));
+                        builder: (context) => const MainScreenPage()));
               },
               color: Colors.black.withOpacity(0.8)),
         ],

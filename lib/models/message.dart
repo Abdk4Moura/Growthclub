@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
     show CollectionReference, DocumentSnapshot, SnapshotOptions, Timestamp;
 import 'package:growthclub/models/base_model.dart' show SyncObject;
+import 'package:growthclub/models/club.dart';
 import 'package:growthclub/models/user.dart' show User;
-import 'package:growthclub/models/util.dart' show MESSAGES;
 
 class Message extends SyncObject {
   final String text;
@@ -91,12 +91,13 @@ class Message extends SyncObject {
     };
   }
 
-  // TODO: to be made unnullable and implemented properly
+  // TODO: to be removed
+  @Deprecated("use of `ClubCombinator` and `group` a bad desing pattern")
   @override
-  final CollectionReference<Object?> _group = MESSAGES as CollectionReference;
+  ClubCombinator get _group => const ClubCombinator();
 
   @override
-  Future<void> sync() {
+  Future<void> sync(MessageContext messageContext) {
     // TODO: implement sync
     throw UnimplementedError();
   }
@@ -110,7 +111,9 @@ class Message extends SyncObject {
   String get time {
     var time_ = sentTimestamp!.toDate();
 
-    if (time_ == null) return '';
+    if (time_ == null) {
+      return '';
+    }
 
     final int hour = time_.hour;
     final int minute = time_.minute;
@@ -124,6 +127,8 @@ class Message extends SyncObject {
     return '$hour:$minute, $after';
   }
 }
+
+class MessageContext {}
 
 enum MessageStatus { sent, delivered, seen, loading }
 

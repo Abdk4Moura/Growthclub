@@ -24,44 +24,46 @@ class SemanticUpdateContradictionError extends Error {
   String toString() => "Attempt to update a non-existent record: $message";
 }
 
-abstract class Logger {
-  Logger();
+abstract class DBObject {
+  DBObject();
 
   String? id;
 
+  bool get fromClient => id == null;
+
   Map<String, dynamic>? toFirestore();
 
-  CollectionReference? _group;
-
-  bool get _withRandomId;
+  bool get _withRandomId => true;
 
   String? get _generatedId;
+}
 
+abstract class Logger extends DBObject {
+  Logger();
+
+  late CollectionReference _group;
+
+  // TODO: make log more useful since dart values scope of method over
+  // usability
   void log({bool isUpdating = false}) {
     var toF = toFirestore();
     if (isUpdating) {
       assert(id != null);
       assert(toF != null);
-      _group?.doc(id).update(toF!);
+      _group.doc(id).update(toF!);
     } else {
       if (!_withRandomId) {
         String id_ =
             _generatedId!; /* generatedId has a side effect,
         it updates `id` itself */
-        _group!.doc(id_).set(toF);
+        _group.doc(id_).set(toF);
       } else {
-        _group!.add(toF).then((value) {
+        _group.add(toF).then((value) {
           id = value.id;
         });
       }
     }
   }
-}
-
-abstract class DBObject extends Logger {
-  DBObject();
-
-  bool get fromClient => id == null;
 }
 
 abstract class SyncObject extends DBObject {
