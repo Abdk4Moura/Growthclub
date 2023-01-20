@@ -17,6 +17,7 @@ class User extends DBObject {
   String? _name;
   String? _email;
   String? _phoneNumber;
+  Map<String, String>? clubs;
   late final Timestamp? createdDate;
   @override
   String? id;
@@ -27,6 +28,7 @@ class User extends DBObject {
       {String? name,
       String? email,
       String? phoneNumber,
+      this.clubs,
       Timestamp? createdDate,
       String? id,
       String imageUrl = defaultIconImage})
@@ -45,8 +47,8 @@ class User extends DBObject {
     log();
   }
 
-  factory User.fromUID(String id) {
-    User user = users(id).doc(id).get().data();
+  static fromUID(String id) async {
+    User user = await users(id).get().then((value) => value.data()!);
     return user;
   }
 
@@ -93,13 +95,26 @@ class User extends DBObject {
       {bool isUpdating = false,
       fa.PhoneAuthCredential? phoneAuthCredential,
       String? password}) async {
-    if (isUpdating && id == null)
-      throw SemanticUpdateContradictionError(toString());
-    super.log(isUpdating: isUpdating);
-
     var user = fa.FirebaseAuth.instance.currentUser;
     if (user == null) throw Error();
-    // if (user.uid == id) throw Error();
+    if (user.uid != id) {
+      throw Error();
+    }
+    ;
+    if (isUpdating && id == null) {
+      throw SemanticUpdateContradictionError(toString());
+    }
+
+    var toF = toFirestore();
+    if (isUpdating) {
+      assert(id != null);
+      _group.doc(id).update(toF);
+    } else {
+      _group.add(toF).then((value) {
+        id = value.id;
+      });
+    }
+
     if (nameHasChanged) {
       user.updateDisplayName(name);
       nameHasChanged != nameHasChanged;
@@ -146,7 +161,7 @@ class User extends DBObject {
       email: data?['email'],
       phoneNumber: data?['phoneNumber'],
       id: data?['id'],
-    );
+        clubs: data?['clubs']);
   }
 
   @override
@@ -156,6 +171,7 @@ class User extends DBObject {
       if (email != null) "email": email,
       if (phoneNumber != null) "phoneNumber": phoneNumber,
       if (id != null) "id": id,
+      if (clubs != null) "clubs": clubs
     };
   }
 

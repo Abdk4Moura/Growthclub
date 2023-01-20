@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
     show CollectionReference, DocumentSnapshot, SnapshotOptions, Timestamp;
-import 'package:growthclub/models/base_model.dart' show SyncObject;
 import 'package:growthclub/models/club.dart';
 import 'package:growthclub/models/user.dart' show User;
 
-class Message extends SyncObject {
+class Message {
   final String text;
   Timestamp? sentTimestamp;
   Timestamp? deliveredTimestamp;
@@ -29,7 +28,6 @@ class Message extends SyncObject {
     assert(!((seenTimestamp != null || deliveredTimestamp != null) &&
         sentTimestamp == null));
     assert(deliveredTimestamp == null && seenTimestamp != null);
-    assert(fromClient && id != null);
 
     final regExp = RegExp(r'^\s*(\d+):(\d+)\w([AP][M])$');
     List<dynamic> hmp = List.filled(3, null);

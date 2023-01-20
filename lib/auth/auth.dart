@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show
         FirebaseAuth,
@@ -9,19 +10,21 @@ import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:google_sign_in/google_sign_in.dart'
     show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
 import 'package:growthclub/models/user.dart' as db;
+import 'package:growthclub/models/util.dart' as util;
+
+import '../models/club.dart';
 
 class AuthModel extends ChangeNotifier {
   bool get isSignedIn => instance.currentUser != null;
 
-  get instance => FirebaseAuth.instance;
+  FirebaseAuth get instance => FirebaseAuth.instance;
 
-  db.User get user => db.User.fromFaUser(instance.currentUser);
+  db.User get user => db.User.fromFaUser(instance.currentUser!);
 
   String? get firstname => instance.currentUser?.displayName?.split(' ').first;
 
   String? get username {
     return firstname;
-    throw UnimplementedError();
   }
 
 // TODO: make signInWithFacebook work actually
@@ -31,7 +34,7 @@ class AuthModel extends ChangeNotifier {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    await googleUser?.authentication;
 
     // Create a new credential
     late final OAuthCredential credential;
@@ -52,8 +55,7 @@ class AuthModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserCredential?> signInWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future<UserCredential?> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       final credential = await instance.signInWithEmailAndPassword(
         email: email,
@@ -79,4 +81,40 @@ class AuthModel extends ChangeNotifier {
 //     user.name = name;
 //   }
 // }
+}
+
+class DBModel extends ChangeNotifier {
+  get instance => FirebaseFirestore.instance;
+
+  baseModel(String id) => FirebaseFirestore.instance.collection('clubs');
+
+  get clubs async {
+    String id = db.User.currentUser_().id!;
+    var userSnapshot = await util.users(id).get();
+
+    db.User? user = userSnapshot.data();
+    user = user!;
+
+    return user.clubs;
+  }
+
+  rooms([String? clubId]) async {
+    clubId ??= clubs.first;
+    final clubSnapshot = await util.clubs(clubId!).get();
+
+    Club? club = clubSnapshot.data();
+
+    return club?.rooms;
+  }
+
+  String? currentClub;
+
+  void activeClub(String? clubId) {
+    if (clubId == null) {
+      currentClub = clubs.first;
+    } else {
+      currentClub = clubId;
+    }
+    notifyListeners();
+  }
 }

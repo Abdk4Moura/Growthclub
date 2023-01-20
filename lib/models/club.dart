@@ -9,6 +9,7 @@ class Club extends SyncObject {
 
   // [members] identity stored as their uid
   final List<String> members;
+  List<String> rooms;
   final List<Task> tasks;
   final Timestamp? creationDate;
 
@@ -17,6 +18,7 @@ class Club extends SyncObject {
     required this.name,
     required this.members,
     required this.tasks,
+    required this.rooms,
     this.creationDate,
   }) : assert(id == null && creationDate == null);
 
@@ -31,7 +33,7 @@ class Club extends SyncObject {
       tasks: data?['tasks'],
       members: data?['members'],
       id: data?['id'],
-    );
+        rooms: data?['rooms']);
   }
 
   @override
@@ -41,6 +43,7 @@ class Club extends SyncObject {
       "creationDate": creationDate,
       "tasks": tasks,
       "members": members,
+      "rooms": rooms,
       if (id != null) "id": id,
     };
   }
@@ -54,6 +57,51 @@ class Club extends SyncObject {
   @override
   // TODO: implement generatedId
   String? get _generatedId => throw UnimplementedError();
+}
+
+class ClubCombinator {
+  final List? collections;
+
+  const ClubCombinator([this.collections]);
+
+  Future<ClubCombinator> add(data) async {
+    final newCollections = [];
+    for (final collection in collections!) {
+      newCollections.add(await collection.add(data));
+    }
+
+    return ClubCombinator(newCollections);
+  }
+
+  Query<Object?> startAtDocument(DocumentSnapshot<Object?> documentSnapshot) {
+    // TODO: implement startAtDocument
+    throw UnimplementedError();
+  }
+
+  @override
+  Query<Object?> where(Object field,
+      {Object? isEqualTo,
+      Object? isNotEqualTo,
+      Object? isLessThan,
+      Object? isLessThanOrEqualTo,
+      Object? isGreaterThan,
+      Object? isGreaterThanOrEqualTo,
+      Object? arrayContains,
+      List<Object?>? arrayContainsAny,
+      List<Object?>? whereIn,
+      List<Object?>? whereNotIn,
+      bool? isNull}) {
+    // TODO: implement where
+    throw UnimplementedError();
+  }
+
+  @override
+  CollectionReference<R> withConverter<R extends Object?>(
+      {required FromFirestore<R> fromFirestore,
+      required ToFirestore<R> toFirestore}) {
+    // TODO: implement withConverter
+    throw UnimplementedError();
+  }
 }
 
 /* TESTS */

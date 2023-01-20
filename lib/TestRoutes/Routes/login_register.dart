@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:growthclub/TestRoutes/inapp.dart';
 import 'package:growthclub/pages/mainScreen.dart';
 import 'package:growthclub/themes.dart';
 
 import '../../growthron_ui.dart';
-import '../../auth/auth.dart';
 
 class RegisterPageWidget extends StatefulWidget {
   const RegisterPageWidget({Key? key}) : super(key: key);
