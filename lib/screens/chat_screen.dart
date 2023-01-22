@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:growthclub/auth/auth.dart';
+import 'package:provider/provider.dart';
 
-import '/models/message.dart';
+import '../models/message.dart';
 import '/models/user.dart';
+import '/models/room.dart';
 
 class ChatScreen extends StatefulWidget {
-  final User user;
+  final Room room;
 
-  const ChatScreen({super.key, required this.user});
+  const ChatScreen({super.key, required this.room});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -121,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text(
-          widget.user.name!,
+          widget.room.name,
           style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
@@ -155,15 +158,20 @@ class _ChatScreenState extends State<ChatScreen> {
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
                   ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: const EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.ownerId == currentUser.id;
-                      return _buildMessage(message, isMe);
-                    },
+                  child: Consumer<DBModel>(
+                    builder: (context, db, _) => ListView.builder(
+                      reverse: true,
+                      padding: const EdgeInsets.only(top: 15.0),
+                      itemCount: () {
+                        var messages = db.currentRoom!.messages;
+                        return messages.length;
+                    }(),
+                      itemBuilder: (BuildContext context, int index) {
+                        final Message message = messages[index];
+                        final bool isMe = message.ownerId == currentUser.id;
+                        return _buildMessage(message, isMe);
+                      },
+                    ),
                   ),
                 ),
               ),

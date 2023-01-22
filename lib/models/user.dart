@@ -7,8 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart'
         Timestamp;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:growthclub/assets_names.dart';
-import 'package:growthclub/models/base_model.dart';
-import 'package:growthclub/models/util.dart';
+import '/models/base_model.dart';
+import '/models/util.dart';
+
 
 CollectionReference _users = FirebaseFirestore.instance.collection('users');
 
@@ -17,7 +18,7 @@ class User extends DBObject {
   String? _name;
   String? _email;
   String? _phoneNumber;
-  Map<String, String>? clubs;
+  Set<String>? clubs;
   late final Timestamp? createdDate;
   @override
   String? id;
@@ -48,7 +49,9 @@ class User extends DBObject {
   }
 
   static fromUID(String id) async {
-    User user = await users(id).get().then((value) => value.data()!);
+    final userSnapshot = await users(id).get();
+
+    User? user = userSnapshot.data();
     return user;
   }
 
@@ -156,6 +159,7 @@ class User extends DBObject {
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
+
     return User(
       name: data?['name'],
       email: data?['email'],

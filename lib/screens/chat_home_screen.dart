@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:provider/provider.dart';
 
-import '/widgets/category_selector.dart';
+// import '/widgets/category_selector.dart';
 import '/widgets/favourite_contacts.dart';
 import '/widgets/rooms.dart';
 
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: <Widget>[
-          CategorySelector(),
+          // CategorySelector(),
           Expanded(
             child: Container(
               decoration: BoxDecoration(

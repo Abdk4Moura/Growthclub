@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:growthclub/models/base_model.dart';
 import 'package:growthclub/models/task.dart';
 
+import 'room.dart';
+
 class Club extends SyncObject {
   @override
   final String? id;
@@ -9,7 +11,7 @@ class Club extends SyncObject {
 
   // [members] identity stored as their uid
   final List<String> members;
-  List<String> rooms;
+  List<Room> rooms;
   final List<Task> tasks;
   final Timestamp? creationDate;
 
@@ -27,17 +29,27 @@ class Club extends SyncObject {
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
+
+    var r = data?['rooms'];
+    r = r.map(Room.fromFirestore).toList();
+
     return Club(
-      name: data?['name'],
-      creationDate: data?['creationDate'],
-      tasks: data?['tasks'],
-      members: data?['members'],
-      id: data?['id'],
-        rooms: data?['rooms']);
+        name: data?['name'],
+        creationDate: data?['creationDate'],
+        tasks: data?['tasks'],
+        members: data?['members'],
+        id: data?['id'],
+        rooms: r);
   }
 
   @override
   Map<String, dynamic> toFirestore() {
+    List<Map<String, dynamic>?> rooms_ = [];
+
+    for (var room in rooms) {
+      rooms_.add(room.toFirestore());
+    }
+
     return {
       "name": name,
       "creationDate": creationDate,

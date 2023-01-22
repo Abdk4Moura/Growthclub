@@ -9,10 +9,11 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:google_sign_in/google_sign_in.dart'
     show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
-import 'package:growthclub/models/user.dart' as db;
-import 'package:growthclub/models/util.dart' as util;
+import '/models/room.dart';
+import '/models/user.dart' as db;
+import '/models/util.dart' as util;
 
-import '../models/club.dart';
+import '/models/club.dart';
 
 class AuthModel extends ChangeNotifier {
   bool get isSignedIn => instance.currentUser != null;
@@ -34,7 +35,7 @@ class AuthModel extends ChangeNotifier {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+        await googleUser?.authentication;
 
     // Create a new credential
     late final OAuthCredential credential;
@@ -55,7 +56,8 @@ class AuthModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserCredential?> signInWithEmailAndPassword({required String email, required String password}) async {
+  Future<UserCredential?> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     try {
       final credential = await instance.signInWithEmailAndPassword(
         email: email,
@@ -73,14 +75,6 @@ class AuthModel extends ChangeNotifier {
     }
     return null;
   }
-
-// Future updateUserDetails({String? name, String? phoneNumber, String? email, String? password, String? photoURL}) async {
-//   final user_ = FirebaseAuth.instance.currentUser.updateDisplayName(displayName)
-//   if (name != null) {
-//     await instance.currentUser.updateDisplayName(name);
-//     user.name = name;
-//   }
-// }
 }
 
 class DBModel extends ChangeNotifier {
@@ -88,7 +82,7 @@ class DBModel extends ChangeNotifier {
 
   baseModel(String id) => FirebaseFirestore.instance.collection('clubs');
 
-  get clubs async {
+  Future<Set<String>?> get clubs async {
     String id = db.User.currentUser_().id!;
     var userSnapshot = await util.users(id).get();
 
@@ -98,23 +92,48 @@ class DBModel extends ChangeNotifier {
     return user.clubs;
   }
 
-  rooms([String? clubId]) async {
-    clubId ??= clubs.first;
-    final clubSnapshot = await util.clubs(clubId!).get();
+  Future<List<Room>?> rooms([String? clubId]) async {
+    Club? c;
+    if (clubId != null) {
+      var cSnapshot = await util.clubs(clubId).get();
+      c = cSnapshot.data();
+    } else {
+      c = await currentClub;
+    }
 
-    Club? club = clubSnapshot.data();
-
-    return club?.rooms;
+    return c?.rooms;
   }
 
-  String? currentClub;
+  String? _currentClub;
 
-  void activeClub(String? clubId) {
-    if (clubId == null) {
-      currentClub = clubs.first;
-    } else {
-      currentClub = clubId;
+  Future<Club?> get currentClub async {
+    if (_currentClub == null) {
+      final c = await clubs;
+      String first = c!.first;
+      _currentClub = first;
     }
+    DocumentSnapshot<Club> theClub = await util.clubs(_currentClub!).get();
+
+    return theClub.data();
+  }
+
+  Room? _currentRoom;
+
+  Room? get currentRoom {
+    _currentRoom ??= rooms().then((value) => value?.first) as Room?;
+    return _currentRoom;
+  }
+
+  set currentClub(club) {
+    _currentClub = club;
     notifyListeners();
+  }
+
+  set currentRoom(roomId) {
+    var r = rooms();
+    r.then((rooms) {
+      _currentRoom = rooms?.where((room) => room.id == roomId).first;
+      notifyListeners();
+    });
   }
 }
