@@ -5,6 +5,8 @@ import 'package:growthclub/screens/chat_screen.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
 
+import 'chat_home_screen.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -38,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ChatScreen(user: user)));
+                    builder: (context) => const Chats()));
           }),
           settingViewButton(context, text: 'dialog', onPressed: () {
             showDialog(

@@ -43,14 +43,16 @@ class FavouriteContacts extends StatelessWidget {
               itemCount: favorites.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatScreen(
-                        user: favorites[index],
-                      ),
-                    ),
-                  ),
+                  onTap: () {
+                  //   Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (_) => ChatScreen(
+                  //       room: favorites[index],
+                  //     ),
+                  //   ),
+                  // );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(

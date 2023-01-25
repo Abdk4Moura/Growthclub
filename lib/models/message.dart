@@ -38,10 +38,10 @@ class Message {
         count += 1;
       }
       if (hmp[-1] == 'PM') {
-        if (hmp[0] == 12)
-          ;
-        else
+        if (hmp[0] == 12) {
+        } else {
           hmp[0] += 12;
+        }
       }
       var now = DateTime.now();
       sentTimestamp = Timestamp.fromDate(
@@ -76,7 +76,6 @@ class Message {
     );
   }
 
-  @override
   Map<String, dynamic> toFirestore() {
     return {
       "text": text,
@@ -88,11 +87,6 @@ class Message {
       if (id != null) "id": id,
     };
   }
-
-  // TODO: to be removed
-  @Deprecated("use of `ClubCombinator` and `group` a bad desing pattern")
-  @override
-  ClubCombinator get _group => const ClubCombinator();
 
   @override
   Future<void> sync(MessageContext messageContext) {
@@ -107,7 +101,7 @@ class Message {
   bool get unread => seenTimestamp != null;
 
   String get time {
-    var time_ = sentTimestamp!.toDate();
+    var time_ = sentTimestamp?.toDate();
 
     if (time_ == null) {
       return '';
@@ -120,7 +114,7 @@ class Message {
 
     var after = DateTime.now().difference(time_) > const Duration(days: 7)
         ? weekday
-        : '${time_.month} ${time_.day}';
+        : '${time_.month} $day';
 
     return '$hour:$minute, $after';
   }

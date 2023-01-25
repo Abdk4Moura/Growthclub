@@ -11,7 +11,7 @@ class Club extends SyncObject {
 
   // [members] identity stored as their uid
   final List<String> members;
-  List<Room> rooms;
+  final CollectionReference? rooms;
   final List<Task> tasks;
   final Timestamp? creationDate;
 
@@ -30,26 +30,22 @@ class Club extends SyncObject {
   ) {
     final data = snapshot.data();
 
-    var r = data?['rooms'];
-    r = r.map(Room.fromFirestore).toList();
+    // CollectionReference r = data?['rooms'];
+    //
+    // var rooms = r.get().then((value) => value.docs.map(Room.fromFF).toList()) as List<Room>;
 
     return Club(
-        name: data?['name'],
-        creationDate: data?['creationDate'],
-        tasks: data?['tasks'],
-        members: data?['members'],
-        id: data?['id'],
-        rooms: r);
+      name: data?['name'],
+      creationDate: data?['creationDate'],
+      tasks: data?['tasks'],
+      members: data?['members'],
+      id: snapshot.id,
+      rooms: data?['rooms'],
+    );
   }
 
   @override
   Map<String, dynamic> toFirestore() {
-    List<Map<String, dynamic>?> rooms_ = [];
-
-    for (var room in rooms) {
-      rooms_.add(room.toFirestore());
-    }
-
     return {
       "name": name,
       "creationDate": creationDate,
@@ -69,51 +65,6 @@ class Club extends SyncObject {
   @override
   // TODO: implement generatedId
   String? get _generatedId => throw UnimplementedError();
-}
-
-class ClubCombinator {
-  final List? collections;
-
-  const ClubCombinator([this.collections]);
-
-  Future<ClubCombinator> add(data) async {
-    final newCollections = [];
-    for (final collection in collections!) {
-      newCollections.add(await collection.add(data));
-    }
-
-    return ClubCombinator(newCollections);
-  }
-
-  Query<Object?> startAtDocument(DocumentSnapshot<Object?> documentSnapshot) {
-    // TODO: implement startAtDocument
-    throw UnimplementedError();
-  }
-
-  @override
-  Query<Object?> where(Object field,
-      {Object? isEqualTo,
-      Object? isNotEqualTo,
-      Object? isLessThan,
-      Object? isLessThanOrEqualTo,
-      Object? isGreaterThan,
-      Object? isGreaterThanOrEqualTo,
-      Object? arrayContains,
-      List<Object?>? arrayContainsAny,
-      List<Object?>? whereIn,
-      List<Object?>? whereNotIn,
-      bool? isNull}) {
-    // TODO: implement where
-    throw UnimplementedError();
-  }
-
-  @override
-  CollectionReference<R> withConverter<R extends Object?>(
-      {required FromFirestore<R> fromFirestore,
-      required ToFirestore<R> toFirestore}) {
-    // TODO: implement withConverter
-    throw UnimplementedError();
-  }
 }
 
 /* TESTS */

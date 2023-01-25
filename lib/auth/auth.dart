@@ -92,7 +92,7 @@ class DBModel extends ChangeNotifier {
     return user.clubs;
   }
 
-  Future<List<Room>?> rooms([String? clubId]) async {
+  Future<List<Room>?> clubRooms([String? clubId]) async {
     Club? c;
     if (clubId != null) {
       var cSnapshot = await util.clubs(clubId).get();
@@ -100,8 +100,10 @@ class DBModel extends ChangeNotifier {
     } else {
       c = await currentClub;
     }
+    var h = await c?.rooms?.get();
+    var rooms = h?.docs.map(Room.fromFF).toList();
 
-    return c?.rooms;
+    return rooms;
   }
 
   String? _currentClub;
@@ -109,7 +111,8 @@ class DBModel extends ChangeNotifier {
   Future<Club?> get currentClub async {
     if (_currentClub == null) {
       final c = await clubs;
-      String first = c!.first;
+      if (c == null) return null;
+      String first = c.first;
       _currentClub = first;
     }
     DocumentSnapshot<Club> theClub = await util.clubs(_currentClub!).get();
@@ -119,8 +122,10 @@ class DBModel extends ChangeNotifier {
 
   Room? _currentRoom;
 
-  Room? get currentRoom {
-    _currentRoom ??= rooms().then((value) => value?.first) as Room?;
+  get currentRoom async {
+    var rooms = await clubRooms();
+    _currentRoom ??= rooms?.first;
+
     return _currentRoom;
   }
 
@@ -130,10 +135,10 @@ class DBModel extends ChangeNotifier {
   }
 
   set currentRoom(roomId) {
-    var r = rooms();
+    var r = clubRooms();
     r.then((rooms) {
       _currentRoom = rooms?.where((room) => room.id == roomId).first;
       notifyListeners();
-    });
+    }).whenComplete(() => print('`currentRoom` set operation complete!'));
   }
 }

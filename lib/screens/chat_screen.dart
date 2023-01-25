@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,14 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late TextEditingController messageController;
+
+  @override
+  initState() {
+    super.initState();
+    messageController = TextEditingController();
+  }
+
   _buildMessage(Message message, bool isMe) {
     final container = Container(
       margin: isMe
@@ -101,6 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
+              controller: messageController,
               onChanged: (value) {},
               decoration: const InputDecoration.collapsed(
                 hintText: 'Send a message...',
@@ -111,7 +121,15 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: const Icon(Icons.send),
             iconSize: 25.0,
             color: Theme.of(context).primaryColor,
-            onPressed: () {},
+            onPressed: () async {
+              String messageText = messageController.text;
+              Message message = Message(text: messageText);
+              DocumentReference reference = widget.room.reference!;
+
+              await reference.collection('messages').add(message.toFirestore());
+
+              messageController.clear();
+            },
           ),
         ],
       ),
@@ -162,12 +180,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     builder: (context, db, _) => ListView.builder(
                       reverse: true,
                       padding: const EdgeInsets.only(top: 15.0),
-                      itemCount: () {
-                        var messages = db.currentRoom!.messages;
-                        return messages.length;
-                    }(),
+                      itemCount: widget.room.messages?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
-                        final Message message = messages[index];
+                        final Message message = widget.room.messages![index];
                         final bool isMe = message.ownerId == currentUser.id;
                         return _buildMessage(message, isMe);
                       },
