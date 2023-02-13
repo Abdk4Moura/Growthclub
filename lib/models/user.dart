@@ -1,10 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show
-        CollectionReference,
-        DocumentSnapshot,
-        FirebaseFirestore,
-        SnapshotOptions,
-        Timestamp;
+    show CollectionReference, DocumentReference, DocumentSnapshot, FirebaseFirestore, QueryDocumentSnapshot, SnapshotOptions, Timestamp;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:growthclub/assets_names.dart';
 import '/models/base_model.dart';
@@ -34,7 +29,7 @@ class User extends DBObject {
       String? id,
       String imageUrl = defaultIconImage})
       : assert(email != null || phoneNumber != null,
-            'either `phoneNumber` or `email` must be existent')
+            'either `phoneNumber` or `email` is existent')
   // TODO: if user does not have a name, prompt --> completed in the InfoPage.
   {
     this.name = name;
@@ -43,6 +38,18 @@ class User extends DBObject {
     this.imageUrl = imageUrl;
 
     this.createdDate = createdDate ?? Timestamp.now();
+
+    // TODO: Clean up the users collection
+    // List? dunder;
+    // List ls = [];
+    // Future<User> function(QueryDocumentSnapshot snapshot) async {
+    //   var snapshotWith = snapshot.reference.withConverter(
+    //       fromFirestore: User.fromFirestore,
+    //       toFirestore: (User user, _) => user.toFirestore());
+    //
+    //   User addItem = (await snapshotWith.get()).data() as User;
+    // }
+    // FirebaseFirestore.instance.collection('users').get().then((value) => dunder = value.docs);
 
     if (id != null) this.id = id;
     log();
@@ -100,10 +107,10 @@ class User extends DBObject {
       String? password}) async {
     var user = fa.FirebaseAuth.instance.currentUser;
     if (user == null) throw Error();
-    if (user.uid != id) {
+    bool isNotCurrentUser = user.uid != id;
+    if (isNotCurrentUser) {
       throw Error();
     }
-    ;
     if (isUpdating && id == null) {
       throw SemanticUpdateContradictionError(toString());
     }
@@ -150,21 +157,24 @@ class User extends DBObject {
     return User(name: name, email: email, id: id, phoneNumber: phoneNumber);
   }
 
-  factory User.currentUser_() {
-    return User.fromFaUser(fa.FirebaseAuth.instance.currentUser as fa.User);
+  static User? currentUser_() {
+    var currUser = fa.FirebaseAuth.instance.currentUser;
+    if (currUser == null) return null;
+    return User.fromFaUser(currUser);
   }
 
   factory User.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
+    final String id = snapshot.id;
     final data = snapshot.data();
 
     return User(
       name: data?['name'],
       email: data?['email'],
       phoneNumber: data?['phoneNumber'],
-      id: data?['id'],
+      id: id,
         clubs: data?['clubs']);
   }
 
@@ -174,7 +184,6 @@ class User extends DBObject {
       if (name != null) "name": name,
       if (email != null) "email": email,
       if (phoneNumber != null) "phoneNumber": phoneNumber,
-      if (id != null) "id": id,
       if (clubs != null) "clubs": clubs
     };
   }

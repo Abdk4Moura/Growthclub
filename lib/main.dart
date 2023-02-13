@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/firebase_options.dart';
 import 'package:growthclub/pages/onboarding.dart';
+import 'package:growthclub/screens/chat_home_screen.dart';
 import 'package:provider/provider.dart';
 
 // global VARS
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen(), //  HomePageWidget()
+        home: const Chats(), //  SplashScreen()
         theme: ThemeData(
                 useMaterial3: true,
                 dividerColor: const Color(0xFFBEBEBE),

@@ -28,7 +28,7 @@ class Room {
     final data = snapshot.data();
     return Room(
       name: data?['name'],
-      messages: data?['email'],
+      messages: data?['messages'],
       id: snapshot.id,
       users: data?['users'],
     );

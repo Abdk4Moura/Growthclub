@@ -36,7 +36,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authModel = Provider.of<AuthModel>(context, listen: true);
     return Consumer<AuthModel>(
       builder: (context, authModel, _) => BasePage(
           body: Padding(

@@ -83,13 +83,14 @@ class DBModel extends ChangeNotifier {
   baseModel(String id) => FirebaseFirestore.instance.collection('clubs');
 
   Future<Set<String>?> get clubs async {
-    String id = db.User.currentUser_().id!;
-    var userSnapshot = await util.users(id).get();
+    String? id = db.User.currentUser_()?.id!;
+    if (id == null) throw StateError('user is null');
+    var userSnapshot =
+        await util.users(id).get().catchError((error) => throw error);
 
     db.User? user = userSnapshot.data();
-    user = user!;
 
-    return user.clubs;
+    return user?.clubs;
   }
 
   Future<List<Room>?> clubRooms([String? clubId]) async {
@@ -98,7 +99,7 @@ class DBModel extends ChangeNotifier {
       var cSnapshot = await util.clubs(clubId).get();
       c = cSnapshot.data();
     } else {
-      c = await currentClub;
+      c = await currentClub.catchError((error) => throw error);
     }
     var h = await c?.rooms?.get();
     var rooms = h?.docs.map(Room.fromFF).toList();
@@ -111,7 +112,9 @@ class DBModel extends ChangeNotifier {
   Future<Club?> get currentClub async {
     if (_currentClub == null) {
       final c = await clubs;
-      if (c == null) return null;
+      if (c == null) {
+        throw StateError("Cannot get current user: clubs list is empty");
+      }
       String first = c.first;
       _currentClub = first;
     }

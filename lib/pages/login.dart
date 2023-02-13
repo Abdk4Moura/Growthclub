@@ -4,12 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growthclub/assets_names.dart';
 import 'package:growthclub/pages/mainScreen.dart';
+import 'package:growthclub/pages/onboarding.dart';
 import 'package:growthclub/themes.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/auth.dart';
 import '../../growthron_ui.dart';
+import '../models/user.dart';
 
 // added some useless comments
 
@@ -41,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
 
   _signInWithFacebook() {}
 
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthModel>(
@@ -59,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     buildTitle(),
-                   imageAndFormWidget(authModel, context),
+                    imageAndFormWidget(authModel, context),
                     Text(
                       'Or continue using',
                       style: OutfitTheme.title1,
@@ -76,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final user = await _signInWithGoogle(authModel);
+                                  final user =
+                                      await _signInWithGoogle(authModel);
                                   if (user == null) {
                                     // user == null
                                     return;
@@ -225,106 +227,105 @@ class _LoginPageState extends State<LoginPage> {
 
   Column buildTitle() {
     return Column(
-                  children: [
-                    TitleWidget(big: 'Welcome!', small: 'Create an account'),
-                  ],
-                );
+      children: [
+        TitleWidget(big: 'Welcome!', small: 'Create an account'),
+      ],
+    );
   }
 
   Widget imageAndFormWidget(AuthModel authModel, BuildContext context) {
     return SizedBox(
-                  height: 400,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Hero(
-                          tag: 'hero_tag_added',
-                          transitionOnUserGestures: true,
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.asset(
-                              avatarAlameen,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
+      height: 400,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Hero(
+              tag: 'hero_tag_added',
+              transitionOnUserGestures: true,
+              child: Container(
+                width: 120,
+                height: 120,
+                clipBehavior: Clip.antiAlias,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  avatarAlameen,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+          Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: emailController,
+                  autofocus: true,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'tonystark@example.com',
+                    hintStyle: OutfitTheme.bodyText2,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 1,
                       ),
-                      Form(
-                        key: formKey,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: emailController,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                hintText: 'tonystark@example.com',
-                                hintStyle: OutfitTheme.bodyText2,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                              ),
-                              style: OutfitTheme.bodyText1,
-                              keyboardType: TextInputType.name,
-                            ),
-                            const SizedBox(height: 16),
-                            TextFormField(
-                              controller: passwordController,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                hintText: 'Hard to guess, easy to remember\n',
-                                hintStyle: OutfitTheme.bodyText2,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                              ),
-                              style: OutfitTheme.bodyText1,
-                              keyboardType: TextInputType.visiblePassword,
-                            ),
-                          ],
-                        ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 1.5,
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0, 30, 0, 0),
-                        child: GrowthronButton(
-                          onPressed: () async {
-                            final email = emailController.text;
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  style: OutfitTheme.bodyText1,
+                  keyboardType: TextInputType.name,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: passwordController,
+                  autofocus: true,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Hard to guess, easy to remember\n',
+                    hintStyle: OutfitTheme.bodyText2,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  style: OutfitTheme.bodyText1,
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+            child: GrowthronButton(
+              onPressed: () async {
+                final email = emailController.text;
                 final password = passwordController.text;
 
                 print('reached here');
@@ -339,39 +340,45 @@ class _LoginPageState extends State<LoginPage> {
                   print("Logged In");
                 }
 
-                // createUser(emailAddress: email, password: password);
-
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MainScreenPage(),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                          text: 'Open Sesame',
-                          options: GrowthronButtonOptions(
-                            width: 300,
-                            height: 50,
-                            color: GTheme.primaryButtonColor,
-                            textStyle: OutfitTheme.subtitle1.apply(
-                              color: Colors.white,
-                            ),
-                            elevation: 3,
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      )
-                    ],
+                // TODO: Move the `AdditionalInfoScreen` and `MainScreenPage` routes into a loader screen
+                if (authModel.username == '' || authModel.username == null) {
+                  await Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AdditionalInfoScreen()),
+                      (route) => false);
+                }
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainScreenPage(),
                   ),
+                  (r) => false,
                 );
-  }
 
+                // createUser(emailAddress: email, password: password);
+              },
+              text: 'Open Sesame',
+              options: GrowthronButtonOptions(
+                width: 300,
+                height: 50,
+                color: GTheme.primaryButtonColor,
+                textStyle: OutfitTheme.subtitle1.apply(
+                  color: Colors.white,
+                ),
+                elevation: 3,
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
 //   Future createUser({required String emailAddress, required String password}) async {
 //     // Reference to document
@@ -442,10 +449,7 @@ TextFormField GrowthronFormField(BuildContext context,
 
 Widget TitleWidget({required String big, String? small}) {
   return Column(
-    children: [
-      CenterText(small ?? '', style: SmallTextStyle),
-      CenterText(big)
-    ],
+    children: [CenterText(small ?? '', style: SmallTextStyle), CenterText(big)],
   );
 }
 

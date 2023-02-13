@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3)).then((value) {
+    Future.delayed(const Duration(seconds: 3)).then((_) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (ctx) => const ContextProvider()));
     });
@@ -63,23 +63,24 @@ class ContextProvider extends StatelessWidget {
       if (currentUser == null) {
         return const LoginPage();
       }
-      if (currentUser.displayName == '') {
-        return const InfoPage();
+      if (currentUser.displayName == '' || currentUser.displayName == null) {
+        return const AdditionalInfoScreen();
       }
+
       return const MainScreenPage();
       // return const ChatAndClubs();
     });
   }
 }
 
-class InfoPage extends StatefulWidget {
-  const InfoPage({Key? key}) : super(key: key);
+class AdditionalInfoScreen extends StatefulWidget {
+  const AdditionalInfoScreen({Key? key}) : super(key: key);
 
   @override
-  State<InfoPage> createState() => _InfoPageState();
+  State<AdditionalInfoScreen> createState() => _AdditionalInfoScreenState();
 }
 
-class _InfoPageState extends State<InfoPage> {
+class _AdditionalInfoScreenState extends State<AdditionalInfoScreen> {
   late final nameController;
 
   late final emailController;
@@ -186,7 +187,11 @@ class _InfoPageState extends State<InfoPage> {
                       user.name = name;
                       user.phoneNumber = phoneNumber;
 
-                      await user.log(isUpdating: true);
+                      void emit (Error error) {
+                        print(error);
+                      }
+
+                      await user.log(isUpdating: true).catchError((error) => emit(error));
 
                       await Navigator.pushAndRemoveUntil(
                         context,

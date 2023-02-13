@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:growthclub/models/base_model.dart';
 import 'package:growthclub/models/task.dart';
 
+import 'util.dart' as util;
 import 'room.dart';
 
 class Club extends SyncObject {
@@ -24,10 +25,8 @@ class Club extends SyncObject {
     this.creationDate,
   }) : assert(id == null && creationDate == null);
 
-  factory Club.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
+  factory Club.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,) {
     final data = snapshot.data();
 
     // CollectionReference r = data?['rooms'];
@@ -43,11 +42,28 @@ class Club extends SyncObject {
       rooms: data?['rooms'],
     );
   }
+  
+  factory Club.fromMap(Map<String, dynamic> data) {
+    var map = data.entries.toSet().where((element) => false);
+    if (data.containsKey('id')) var id = data['id'];
+    
+    return Club(
+      name: data['name'],
+      creationDate: data['creationDate'],
+      tasks: data['tasks'],
+      members: data['members'],
+      rooms: data['rooms'],
+    );
+  }
 
   @override
   Map<String, dynamic> toFirestore() {
     return {
-      "name": name,
+      "name": name  Map<String, dynamic> prevClubMapData = (await FirebaseFirestore
+      .instance.collection('clubs')
+      .where('name', isEqualTo: club.name)
+      .get()).docs.first.data();
+,
       "creationDate": creationDate,
       "tasks": tasks,
       "members": members,
@@ -67,6 +83,19 @@ class Club extends SyncObject {
   String? get _generatedId => throw UnimplementedError();
 }
 
+Future<void> pushClub(Club club) async {
+  Map<String, dynamic> prevClubMapData = (await FirebaseFirestore
+      .instance.collection('clubs')
+      .where('name', isEqualTo: club.name)
+      .get()).docs.first.data();
+  
+  Club? prevClubMapData = Club.fromFirestore(, options)
+  
+}
+
 /* TESTS */
 
+
 var clubs = [];
+
+var takingACourse = Club(name: "Taking a Course", rooms:);

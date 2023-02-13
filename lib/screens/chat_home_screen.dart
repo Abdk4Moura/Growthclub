@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/typography.dart';
@@ -26,7 +27,7 @@ class _ChatsState extends State<Chats> {
           leading: IconButton(
               icon: const Icon(Icons.menu),
               iconSize: 30.0,
-              color: Colors.white,
+              color: Colors.black,
               onPressed: () {}),
           title: const Center(
             child: Text(
@@ -42,70 +43,84 @@ class _ChatsState extends State<Chats> {
             IconButton(
                 icon: const Icon(Icons.search),
                 iconSize: 30.0,
-                color: Colors.white,
+                color: Colors.black,
                 onPressed: () {}),
           ],
         ),
-        body: Column(
-          children: <Widget>[
-            // CategorySelector(),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    // const FavouriteContacts(),
-                    Consumer<DBModel>(
-                        builder: (context, db, child) => FutureBuilder(
-                              future: db.clubRooms(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                if (snapshot.hasError) {
-                                  return Center(
-                                      child: Text(
-                                          'there was an error: $snapshot.error',
-                                          style: GTheme.title1.copyWith(
-                                            color: Colors.red,
-                                          )));
-                                }
-                                if (snapshot.hasData) {
-                                  List<Room> rooms = snapshot.data;
-                                  return Rooms(rooms: rooms);
-                                }
-                                if (snapshot.hasError) {
-                                  // TODO: Error display widget
-                                  return Expanded(
-                                      child: Center(
-                                    child: Text(
-                                        'Unable to get resource: ${snapshot.error}',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).errorColor)),
-                                  ));
-                                }
-                                else {
-                                  return Expanded(
-                                      child: Center(
-                                    child: Text('Loading ...',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).errorColor)),
-                                  ));
-                                }
-                              },
-                            )),
-                  ],
-                ),
-              ),
-            )
-          ],
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // CategorySelector(),
+              Consumer<DBModel>(
+                  builder: (context, db, child) => FutureBuilder(
+                        future: db.clubRooms(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (kDebugMode) {
+                            print(
+                                'snapshot state: ${snapshot.connectionState}');
+                            print('snapshot.hasData: ${snapshot.hasData}');
+                            print('snapshot.data: ${snapshot.data}');
+                            print('snapshot.hasError: ${snapshot.hasError}');
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              List<Room>? rooms = snapshot.data;
+
+                              return rooms != null
+                                  ? Expanded(child: Rooms(rooms: rooms))
+                                  : _buildError(context,
+                                      text: 'non-existent document requested!');
+                            } else {
+                              if (kDebugMode) {
+                                print(
+                                    'Unable to get resource: ${snapshot.error}');
+                              }
+                              // TODO: Error display widget
+                              return _buildError(context,
+                                  text:
+                                      'Error!\nerror type: ${snapshot.error}');
+                            }
+                          } else {
+                            return Center(
+                              child: Text('Loading ...',
+                                  style: TextStyle(
+                                      color: Theme.of(context).errorColor)),
+                            );
+                          }
+                        },
+                      ))
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildError(BuildContext context, {required String text}) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      width: MediaQuery.of(context).size.width / (1.5),
+      height: 200,
+      decoration: BoxDecoration(
+          color: const Color(0xf9ddc9ff),
+          gradient: RadialGradient(
+              colors: [
+                Colors.black.withOpacity(0.3),
+                Colors.red.withOpacity(0.2),
+                Colors.white.withOpacity(1.0)
+              ],
+              center: Alignment.center,
+              radius: 10,
+              tileMode: TileMode.clamp),
+          borderRadius: const BorderRadius.all(Radius.circular(10))),
+      child: Center(
+        child: Text(text,
+            style: GTheme.subtitle1.apply(color: Theme.of(context).errorColor)),
       ),
     );
   }
