@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:growthclub/models/base_model.dart';
 import 'package:growthclub/models/task.dart';
-
-import 'util.dart' as util;
-import 'room.dart';
+import 'package:growthclub/models/user.dart';
 
 class Club extends SyncObject {
   @override
@@ -11,7 +9,7 @@ class Club extends SyncObject {
   final String name;
 
   // [members] identity stored as their uid
-  final List<String> members;
+  final Set<String> members;
   final CollectionReference? rooms;
   final List<Task> tasks;
   final Timestamp? creationDate;
@@ -42,11 +40,14 @@ class Club extends SyncObject {
       rooms: data?['rooms'],
     );
   }
-  
+
   factory Club.fromMap(Map<String, dynamic> data) {
-    var map = data.entries.toSet().where((element) => false);
-    if (data.containsKey('id')) var id = data['id'];
-    
+    //<editor-fold desc="I do not seem to understand what happened here">
+    // var map = data.entries.toSet().where((element) => false);
+    // if (data.containsKey('id'))
+    //   var id = data['id'];
+    //</editor-fold>
+
     return Club(
       name: data['name'],
       creationDate: data['creationDate'],
@@ -59,11 +60,7 @@ class Club extends SyncObject {
   @override
   Map<String, dynamic> toFirestore() {
     return {
-      "name": name  Map<String, dynamic> prevClubMapData = (await FirebaseFirestore
-      .instance.collection('clubs')
-      .where('name', isEqualTo: club.name)
-      .get()).docs.first.data();
-,
+      "name": name,
       "creationDate": creationDate,
       "tasks": tasks,
       "members": members,
@@ -83,19 +80,55 @@ class Club extends SyncObject {
   String? get _generatedId => throw UnimplementedError();
 }
 
-Future<void> pushClub(Club club) async {
-  Map<String, dynamic> prevClubMapData = (await FirebaseFirestore
-      .instance.collection('clubs')
-      .where('name', isEqualTo: club.name)
-      .get()).docs.first.data();
-  
-  Club? prevClubMapData = Club.fromFirestore(, options)
-  
+Future<void> pushInstantaneouslyForClubs(List<Club> club) async {
+  // Map<String, dynamic> prevClubMapData = (await FirebaseFirestore
+  //     .instance.collection('clubs')
+  //     .where('name', isEqualTo: club.name)
+  //     .get()).docs.first.data();
+  for (var club in clubs) {
+    await FirebaseFirestore.instance.collection('clubs').add(club.toFirestore());
+  }
 }
 
+
 /* TESTS */
+// create 5 dummy clubs in a list
+List<Club> clubs = [];
+User john = User(
+  name: 'John',
+  email: 'john@email.com',
+  phoneNumber: '+123456789',
+  clubs: null,
+  createdDate: Timestamp.now(),
+);
 
+User jerry = User(
+  name: 'Jerry',
+  email: 'jerry@gmail.com',
+  phoneNumber: '+987654321',
+  clubs: null,
+  createdDate: Timestamp.now(),
+);
 
-var clubs = [];
+User tom = User(
+  name: 'Tom',
+  email: 'tom@gmail.com',
+  phoneNumber: '+123456789',
+  clubs: null,
+  createdDate: Timestamp.now(),
+);
 
-var takingACourse = Club(name: "Taking a Course", rooms:);
+List<User> users = [john, jerry, tom];
+
+void test () {
+  var clubNames = ['HelloClub', 'JapaGeng', 'Home Away', 'Dostoevsky Book Club', ];
+  for (String clubName in clubNames) {
+    clubs.add(Club(
+      name: clubName,
+      creationDate: Timestamp.now(),
+      tasks: [],
+      members: {},
+      rooms: null,
+    ));
+  }
+}

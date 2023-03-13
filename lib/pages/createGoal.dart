@@ -25,10 +25,7 @@ class _NewGoalPageState extends State<NewGoalPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      key: scaffoldKey,
-      backgroundColor: Colors.white,
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 0),
         child: SingleChildScrollView(
           child: Column(
@@ -118,8 +115,7 @@ class _NewGoalPageState extends State<NewGoalPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   TextStyle smallStyle =

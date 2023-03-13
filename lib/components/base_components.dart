@@ -247,58 +247,27 @@ Widget bottomNavBar(BuildContext context) => Container(
               top: BorderSide(
         width: 1,
       ))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              // showDialog<String>(
-              //   context: context,
-              //   builder: (BuildContext context) => dialogTemplate(),
-              // );
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SettingsScreen()));
-            },
-            color: Colors.black.withOpacity(0.8),
+      child: const TabBar(
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        labelColor: Colors.black,
+        tabs: [
+          Tab(
+            icon:
+              Icon(Icons.menu),
           ),
-          IconButton(
-            icon: const Icon(FontAwesomeIcons.peopleGroup),
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const NewClubPage()));
-            },
-            color: Colors.black.withOpacity(0.8),
+          Tab(
+            icon:
+              Icon(FontAwesomeIcons.peopleGroup),
           ),
-          IconButton(
-              icon: const Icon(Icons.other_houses_outlined),
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActivityPage()));
-              },
-              color: Colors.black.withOpacity(0.8)),
-          IconButton(
-              icon: const Icon(FontAwesomeIcons.bullseye),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NewGoalPage()));
-              },
-              color: Colors.black.withOpacity(0.8)),
-          IconButton(
-              icon: const Icon(Icons.person_outline),
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MainScreenPage()));
-              },
-              color: Colors.black.withOpacity(0.8)),
+          Tab(
+                icon: Icon(Icons.other_houses_outlined),
+          ),
+          Tab(
+                icon: Icon(FontAwesomeIcons.bullseye),
+          ),
+          Tab(
+                icon: Icon(Icons.person_outline),
+          ),
         ],
       ),
     );

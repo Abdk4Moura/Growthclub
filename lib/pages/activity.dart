@@ -42,36 +42,33 @@ class _ActivityPageState extends State<ActivityPage> {
           comment:
               'Hey guys! I built a tool that automatically converts your speech in Yoruba into English text')
     ];
-    return BasePage(
-      key: scaffoldKey,
-      backgroundColor: Theme.of(context).canvasColor,
-      body: Column(mainAxisSize: MainAxisSize.max, children: [
-        // heading
-        Padding(
-          padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 5.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Activity',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              IconButton(
-                color: GTheme.mainIconColor,
-                icon: const Icon(Icons.notifications),
-                onPressed: () {},
-              )
-            ],
-          ),
+
+    return Column(mainAxisSize: MainAxisSize.max, children: [
+      // heading
+      Padding(
+        padding: const EdgeInsets.fromLTRB(32.0, 10, 32.0, 5.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Activity',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            IconButton(
+              color: GTheme.mainIconColor,
+              icon: const Icon(Icons.notifications),
+              onPressed: () {},
+            )
+          ],
         ),
-        Expanded(
-            child: ListView(
-          children: cardList,
-        ))
-      ]),
-    );
+      ),
+      Expanded(
+          child: ListView(
+        children: cardList,
+      ))
+    ]);
   }
 
   MCWWrapper buildMessageCardWidget(

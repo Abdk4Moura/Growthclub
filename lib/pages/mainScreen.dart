@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:growthclub/TestLibrary/components.dart';
 import 'package:growthclub/auth/auth.dart';
 import 'package:growthclub/components/after_auth_base.dart';
+import 'package:growthclub/pages/activity.dart';
+import 'package:growthclub/pages/createClub.dart';
+import 'package:growthclub/pages/createGoal.dart';
 import 'package:growthclub/pages/test_canvas.dart';
+import 'package:growthclub/screens/settings.dart';
 import 'package:growthclub/typography.dart';
 import 'package:provider/provider.dart';
 
@@ -37,63 +41,73 @@ class _MainScreenPageState extends State<MainScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthModel>(
-      builder: (context, authModel, _) => BasePage(
-          body: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
-            child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: Theme.of(context).primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.asset(
-                          testAppHeroImage,
-                          width: 40,
-                          height: 40,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                    child: Text(
-                        'Hey ${authModel.username ?? MainScreenObjects.username}',
-                    style: GTheme.title2),
-                  ),
-                ],
+        builder: (context, authModel, _) => BasePage(
+              body: TabBarView(children: [
+                const SettingsScreen(),
+                const NewClubPage(),
+                const ActivityPage(),
+                const NewGoalPage(),
+                mainScreenView(context, authModel),
+              ]),
+            ));
+  }
+
+  Padding mainScreenView(BuildContext context, AuthModel authModel) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 44, 16, 12),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              color: Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
               ),
-              const SizedBox(height: 20),
-              Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  height: 45,
-                  child: // Generated code for this ListView Widget...
-                      ListView.builder(
-                    padding: EdgeInsets.zero,
-                    primary: false,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CategoriesItem('#${items[index]}');
-                    },
-                  )),
-              const MainScreenTasksTrack(),
-              const TestContainer(),
-              GrowthronSubMenu(
-                  hasAddButtonBeside: true,
-                  headingText: 'Messages',
-                  list: listTiles.map<Widget>(buildListTile).toList()),
-            ]),
-          )),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: Image.asset(
+                    testAppHeroImage,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+              child: Text(
+                  'Hey ${authModel.username ?? MainScreenObjects.username}',
+                  style: GTheme.title2),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Container(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            height: 45,
+            child: // Generated code for this ListView Widget...
+                ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CategoriesItem('#${items[index]}');
+              },
+            )),
+        const MainScreenTasksTrack(),
+        const TestContainer(),
+        GrowthronSubMenu(
+            hasAddButtonBeside: true,
+            headingText: 'Messages',
+            list: listTiles.map<Widget>(buildListTile).toList()),
+      ]),
     );
   }
 }

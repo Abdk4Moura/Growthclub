@@ -108,19 +108,17 @@ class _ChatsState extends State<Chats> {
       height: 200,
       decoration: BoxDecoration(
           color: const Color(0xf9ddc9ff),
-          gradient: RadialGradient(
-              colors: [
-                Colors.black.withOpacity(0.3),
-                Colors.red.withOpacity(0.2),
-                Colors.white.withOpacity(1.0)
-              ],
-              center: Alignment.center,
-              radius: 10,
-              tileMode: TileMode.clamp),
+          gradient: RadialGradient(colors: [
+            Colors.black.withOpacity(0.3),
+            Colors.red.withOpacity(0.2),
+            Colors.white.withOpacity(1.0)
+          ], center: Alignment.center, radius: 10, tileMode: TileMode.clamp),
           borderRadius: const BorderRadius.all(Radius.circular(10))),
-      child: Center(
-        child: Text(text,
-            style: GTheme.subtitle1.apply(color: Theme.of(context).errorColor)),
+      child: ListView(
+        children: [Center(
+          child: Text(text,
+              style: GTheme.subtitle1.apply(color: const Color(0xFFDC6C40))), // Theme.of(context).errorColor
+        )],
       ),
     );
   }

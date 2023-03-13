@@ -113,7 +113,7 @@ class DBModel extends ChangeNotifier {
     if (_currentClub == null) {
       final c = await clubs;
       if (c == null) {
-        throw StateError("Cannot get current user: clubs list is empty");
+        throw StateError("user club list is empty");
       }
       String first = c.first;
       _currentClub = first;

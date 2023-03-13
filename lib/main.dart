@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,9 @@ import 'package:growthclub/pages/onboarding.dart';
 import 'package:growthclub/screens/chat_home_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'TestLibrary/ui_view_experiments.dart' show TabBarDemo;
+import 'models/club.dart';
+
 // global VARS
 
 Future<void> main() async {
@@ -16,10 +20,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
+  await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
 
   GoogleFonts.config.allowRuntimeFetching = true;
-  runApp(ChangeNotifierProvider<AuthModel>(create: (_) => AuthModel(), child: const MyApp()));
+  runApp(ChangeNotifierProvider<AuthModel>(
+      create: (_) => AuthModel(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const Chats(), //  SplashScreen()
+        home:  SplashScreen(), //  const Chats()
         theme: ThemeData(
                 useMaterial3: true,
                 dividerColor: const Color(0xFFBEBEBE),

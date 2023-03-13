@@ -33,14 +33,18 @@ class BasePage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return SafeArea(
-      child: Scaffold(
-          bottomNavigationBar: appBar == null ? null : bottomNavBar(context),
-          appBar: appBar,
-          body: appBar == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Expanded(child: body), bottomNavBar(context)])
-              : body),
+      child: DefaultTabController(
+        length: 5,
+        animationDuration: const Duration(milliseconds: 100),
+        child: Scaffold(
+            bottomNavigationBar: appBar == null ? null : bottomNavBar(context),
+            appBar: appBar,
+            body: appBar == null
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Expanded(child: body), bottomNavBar(context)])
+                : body),
+      ),
     );
   }
 }

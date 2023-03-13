@@ -1,10 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show CollectionReference, DocumentReference, DocumentSnapshot, FirebaseFirestore, QueryDocumentSnapshot, SnapshotOptions, Timestamp;
+    show
+        CollectionReference,
+        DocumentReference,
+        DocumentSnapshot,
+        FirebaseFirestore,
+        QueryDocumentSnapshot,
+        SnapshotOptions,
+        Timestamp;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:growthclub/assets_names.dart';
 import '/models/base_model.dart';
 import '/models/util.dart';
-
 
 CollectionReference _users = FirebaseFirestore.instance.collection('users');
 
@@ -52,7 +58,6 @@ class User extends DBObject {
     // FirebaseFirestore.instance.collection('users').get().then((value) => dunder = value.docs);
 
     if (id != null) this.id = id;
-    log();
   }
 
   static fromUID(String id) async {
@@ -105,8 +110,14 @@ class User extends DBObject {
       {bool isUpdating = false,
       fa.PhoneAuthCredential? phoneAuthCredential,
       String? password}) async {
+    bool isKnownUser =
+        (await USERS.where('email', isEqualTo: email).get()).docs.isNotEmpty;
+
+    if (isKnownUser) return;
+
     var user = fa.FirebaseAuth.instance.currentUser;
     if (user == null) throw Error();
+
     bool isNotCurrentUser = user.uid != id;
     if (isNotCurrentUser) {
       throw Error();
@@ -116,6 +127,7 @@ class User extends DBObject {
     }
 
     var toF = toFirestore();
+
     if (isUpdating) {
       assert(id != null);
       _group.doc(id).update(toF);
@@ -171,10 +183,10 @@ class User extends DBObject {
     final data = snapshot.data();
 
     return User(
-      name: data?['name'],
-      email: data?['email'],
-      phoneNumber: data?['phoneNumber'],
-      id: id,
+        name: data?['name'],
+        email: data?['email'],
+        phoneNumber: data?['phoneNumber'],
+        id: id,
         clubs: data?['clubs']);
   }
 
